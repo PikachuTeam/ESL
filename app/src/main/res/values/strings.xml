@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ESL</string>
+    <string name="english_second_language">ENGLISH SECOND LANGUAGE</string>
+    <string name="basic">BASIC</string>
+    <string name="general">GENERAL</string>
+    <string name="academy">ACADEMY</string>
+    <string name="press_again_to_exit">Press again to exit!</string>
+
 </resources>

@@ -11,13 +11,13 @@ import android.view.WindowManager;
  * Created by ThanhNH-Mac on 2/10/16.
  */
 public abstract class BaseSplashActivity_v4 extends AppCompatActivity {
-
+    private boolean isLoading = true;
     private Thread commonThread;
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
 
@@ -56,9 +56,18 @@ public abstract class BaseSplashActivity_v4 extends AppCompatActivity {
         }, getSplashDuration());
     }
 
+    public void enableOnBackPressed() {
+        isLoading = false;
+    }
+
+    public boolean getStatusLoading() {
+        return isLoading;
+    }
+
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        if (!isLoading)
+            super.onBackPressed();
     }
 
     protected long getSplashDuration() {

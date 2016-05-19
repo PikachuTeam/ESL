@@ -5,23 +5,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import essential.esl.base_v4.BaseFragment_v4;
-import essential.esl.base_v4.BaseSplashActivity_v4;
-
 /**
  * Created by admin on 5/12/2016.
  */
-public abstract class BaseESLActivity extends BaseSplashActivity_v4 {
-    protected abstract int getParentFragmentContainerId();
+public abstract class MyBaseLActivity extends MyBaseSplashActivity {
 
-    protected abstract BaseFragment_v4 getFragmentContent();
+
+    protected abstract MyBaseFragment getFragmentContent();
 
 
     public void addFragmentContent() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.getBackStackEntryCount() == 0) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            BaseFragment_v4 fragment = getFragmentContent();
+            MyBaseFragment fragment = getFragmentContent();
             transaction.add(getParentFragmentContainerId(), fragment, fragment.getClass().getName());
             transaction.commit();
         } else {
@@ -33,12 +30,15 @@ public abstract class BaseESLActivity extends BaseSplashActivity_v4 {
         Snackbar.make(view, idString, Snackbar.LENGTH_LONG).show();
     }
 
-    public BaseParentFragment getCurrentParentFragment() {
+    public MyBaseFragment getCurrentParentFragment() {
         if (getStatusLoading()) return null;
         else
-            return (BaseParentFragment) getSupportFragmentManager().findFragmentById(getParentFragmentContainerId());
+            return (MyBaseFragment) getSupportFragmentManager().findFragmentById(getParentFragmentContainerId());
     }
-
+    public MyBaseFragment getCurrentFragment() {
+        MyBaseFragment currentFragment = (MyBaseFragment) getSupportFragmentManager().findFragmentById(getParentFragmentContainerId());
+        return currentFragment;
+    }
     public void popToFirstFragment() {
         getSupportFragmentManager().popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }

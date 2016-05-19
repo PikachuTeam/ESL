@@ -1,4 +1,4 @@
-package essential.esl.base_v4;
+package essential.esl.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +11,7 @@ import tatteam.com.app_common.ui.drawable.FractionFrameLayout;
 /**
  * Created by ThanhNH-Mac on 2/10/16.
  */
-public abstract class BaseFragment_v4 extends Fragment {
+public abstract class MyBaseFragment extends Fragment {
 
 
     @Override
@@ -27,17 +27,10 @@ public abstract class BaseFragment_v4 extends Fragment {
         return rootView;
     }
 
-    public BaseActivity_v4 getBaseActivity() {
-        return (BaseActivity_v4) getActivity();
+    public MyBaseLActivity getBaseActivity() {
+        return (MyBaseLActivity) getActivity();
     }
 
-    public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-        } else {
-            getBaseActivity().onCloseActivity();
-        }
-    }
 
     public void runOnUIThread(Runnable runnable) {
         if (getBaseActivity() != null) {
@@ -65,11 +58,11 @@ public abstract class BaseFragment_v4 extends Fragment {
         getBaseActivity().clearAllHolder();
     }
 
-    public BaseFragment_v4 getCurrentFragment() {
+    public MyBaseFragment getCurrentFragment() {
         return getBaseActivity().getCurrentFragment();
     }
 
-    public BaseFragment_v4 findFragment(String fragmentTag) {
+    public MyBaseFragment findFragment(String fragmentTag) {
         return getBaseActivity().findFragment(fragmentTag);
     }
 
@@ -85,21 +78,22 @@ public abstract class BaseFragment_v4 extends Fragment {
         getBaseActivity().popToFirstFragment();
     }
 
-    public void replaceFragment(BaseFragment_v4 fragment, String fragmentTag, boolean needCommitAllowingStateLoss) {
+    public void replaceFragment(MyBaseFragment fragment, String fragmentTag, boolean needCommitAllowingStateLoss) {
         replaceFragment(fragment, fragmentTag, fragmentTag, needCommitAllowingStateLoss);
     }
 
-    public void replaceFragment(BaseFragment_v4 fragment, String fragmentTag) {
+    public void replaceFragment(MyBaseFragment fragment, String fragmentTag) {
         replaceFragment(fragment, fragmentTag, fragmentTag, false);
     }
 
-    public void replaceFragment(BaseFragment_v4 fragment, String fragmentTag, String transactionTag) {
+    public void replaceFragment(MyBaseFragment fragment, String fragmentTag, String transactionTag) {
         replaceFragment(fragment, fragmentTag, transactionTag, false);
     }
 
-    public void replaceFragment(BaseFragment_v4 fragment, String fragmentTag, String transactionTag, boolean needCommitAllowingStateLoss) {
+    public void replaceFragment(MyBaseFragment fragment, String fragmentTag, String transactionTag, boolean needCommitAllowingStateLoss) {
         getBaseActivity().replaceFragment(fragment, fragmentTag, transactionTag, needCommitAllowingStateLoss);
     }
+
 
 
     protected abstract int getLayoutResIdContentView();

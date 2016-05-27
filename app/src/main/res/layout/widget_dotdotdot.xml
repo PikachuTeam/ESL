@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_size_37">
+
+    <RelativeLayout
+
+        android:layout_width="@dimen/common_size_100"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+
+
+        <LinearLayout
+            android:layout_width="@dimen/common_size_80"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/dot1"
+                android:layout_width="@dimen/common_size_12"
+                android:layout_height="@dimen/common_size_12"
+
+                android:layout_marginRight="@dimen/common_size_4"
+                android:src="@drawable/dot" />
+
+            <ImageView
+                android:id="@+id/dot2"
+
+                android:layout_width="@dimen/common_size_12"
+                android:layout_height="@dimen/common_size_12"
+                android:src="@drawable/dot" />
+
+            <ImageView
+                android:id="@+id/dot3"
+
+                android:layout_width="@dimen/common_size_12"
+                android:layout_height="@dimen/common_size_12"
+                android:layout_marginLeft="@dimen/common_size_4"
+                android:src="@drawable/dot" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/btn_Tips"
+        android:layout_width="@dimen/common_size_37"
+        android:layout_height="@dimen/common_size_37"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/common_size_7"
+        android:src="@drawable/tips" />
+</RelativeLayout>

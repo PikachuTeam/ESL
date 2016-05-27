@@ -27,10 +27,13 @@ public abstract class MyBaseFragment extends Fragment {
         return rootView;
     }
 
-    public MyBaseLActivity getBaseActivity() {
-        return (MyBaseLActivity) getActivity();
+    public MyBaseActivity getBaseActivity() {
+        return (MyBaseActivity) getActivity();
     }
 
+    public void onBackPress() {
+        popFragment();
+    }
 
     public void runOnUIThread(Runnable runnable) {
         if (getBaseActivity() != null) {
@@ -93,7 +96,6 @@ public abstract class MyBaseFragment extends Fragment {
     public void replaceFragment(MyBaseFragment fragment, String fragmentTag, String transactionTag, boolean needCommitAllowingStateLoss) {
         getBaseActivity().replaceFragment(fragment, fragmentTag, transactionTag, needCommitAllowingStateLoss);
     }
-
 
 
     protected abstract int getLayoutResIdContentView();

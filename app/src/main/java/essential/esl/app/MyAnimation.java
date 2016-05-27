@@ -27,7 +27,8 @@ public class MyAnimation {
         scaleView.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                view.setOnClickListener(null);
+                if (listener != null)
+                    view.setOnClickListener(null);
             }
 
             @Override
@@ -58,7 +59,8 @@ public class MyAnimation {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                view.setOnClickListener(listener);
+                if (listener != null)
+                    view.setOnClickListener(listener);
             }
 
             @Override
@@ -73,4 +75,5 @@ public class MyAnimation {
         });
         scaleReturnView.start();
     }
+
 }

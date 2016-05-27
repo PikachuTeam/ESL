@@ -1,4 +1,4 @@
-package essential.esl.ui;
+package essential.esl.ui.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -7,15 +7,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import essential.esl.R;
-import essential.esl.app.MyBaseLActivity;
+import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
-import essential.esl.ui.parentfragment.HomeFragment;
-import essential.esl.ui.parentfragment.SplashFragment;
+import essential.esl.ui.fragment.HomeFragment;
+import essential.esl.ui.fragment.SplashFragment;
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.sqlite.DatabaseLoader;
 import tatteam.com.app_common.util.CloseAppHandler;
 
-public class MainActivity extends MyBaseLActivity implements CloseAppHandler.OnCloseAppListener {
+public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCloseAppListener {
     private ObjectAnimator logoScaleX, logoScaleY, logoTransTop, logoShowX, logoShowX1, logoHideX, logoHideX1;
     private ImageView logo;
     private CloseAppHandler closeAppHandler;
@@ -106,8 +106,9 @@ public class MainActivity extends MyBaseLActivity implements CloseAppHandler.OnC
     public void onBackPressed() {
         int fragmentCount = getSupportFragmentManager().getBackStackEntryCount();
         if (fragmentCount > 0) {
-            getSupportFragmentManager().popBackStack();
-            animShowLogo();
+            getCurrentFragment().onBackPress();
+            if (fragmentCount == 1)
+                animShowLogo();
         } else if (!getStatusLoading()) closeAppHandler.setKeyBackPress(this);
     }
 

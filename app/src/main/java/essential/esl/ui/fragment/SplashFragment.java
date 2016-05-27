@@ -1,4 +1,4 @@
-package essential.esl.ui.parentfragment;
+package essential.esl.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;

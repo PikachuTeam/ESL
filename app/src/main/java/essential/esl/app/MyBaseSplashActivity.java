@@ -104,15 +104,15 @@ public abstract class MyBaseSplashActivity extends AppCompatActivity {
     }
 
     public void popFragment() {
-        onBackPressed();
+        getSupportFragmentManager().popBackStack();
     }
 
     public void popToFragment(String transactionTag) {
-        getFragmentManager().popBackStack(transactionTag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().popBackStack(transactionTag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     public void popToFirstFragment() {
-        getFragmentManager().popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     public void replaceFragment(MyBaseFragment fragment, String fragmentTag, String transactionTag, boolean needCommitAllowingStateLoss) {

@@ -8,7 +8,7 @@ import android.view.View;
 /**
  * Created by admin on 5/12/2016.
  */
-public abstract class MyBaseLActivity extends MyBaseSplashActivity {
+public abstract class MyBaseActivity extends MyBaseSplashActivity {
 
 
     protected abstract MyBaseFragment getFragmentContent();

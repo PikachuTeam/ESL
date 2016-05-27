@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_size_90"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_size_35">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/common_size_10"
+            android:layout_marginTop="@dimen/common_size_3"
+            android:text="1:02"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_size_10"
+            android:layout_marginTop="@dimen/common_size_3"
+            android:text="1:02"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_size_15"
+            android:layout_alignParentBottom="true"
+            android:max="100"
+            android:maxHeight="@dimen/common_size_3"
+            android:progressDrawable="@drawable/seek_bar"
+            android:thumb="@drawable/dot_seekbar" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_size_55"></LinearLayout>
+
+</LinearLayout>

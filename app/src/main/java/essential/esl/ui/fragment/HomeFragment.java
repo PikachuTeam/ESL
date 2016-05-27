@@ -1,4 +1,4 @@
-package essential.esl.ui.parentfragment;
+package essential.esl.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import essential.esl.R;
 import essential.esl.app.MyAnimation;
 import essential.esl.app.MyBaseFragment;
-import essential.esl.ui.MainActivity;
+import essential.esl.ui.activity.MainActivity;
 
 /**
  * Created by admin on 5/18/2016.

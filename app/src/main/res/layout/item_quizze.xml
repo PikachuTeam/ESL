@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What situation has resulted because of the extremely cold temperatures snow in the mountains?"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_text_size_16" />
+
+    <essential.esl.ui.page.MyItemLayout
+        android:id="@+id/answer1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/common_size_10"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="15"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_check1"
+                android:layout_width="@dimen/common_size_25"
+                android:layout_height="@dimen/common_size_25"
+                android:src="@drawable/dot" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_answer1"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="85"
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="A. A group of animals has come down into the valley."
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_16"></TextView>
+    </essential.esl.ui.page.MyItemLayout>
+
+    <essential.esl.ui.page.MyItemLayout
+        android:id="@+id/answer2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/common_size_10"
+        android:layout_marginTop="@dimen/common_size_10"
+
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="15"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_check2"
+                android:layout_width="@dimen/common_size_25"
+                android:layout_height="@dimen/common_size_25"
+                android:src="@drawable/dot" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_answer2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="85"
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="A. A group of animals has come down into the valley."
+
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_16"></TextView>
+    </essential.esl.ui.page.MyItemLayout>
+
+    <essential.esl.ui.page.MyItemLayout
+        android:id="@+id/answer3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="15"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_check3"
+                android:layout_width="@dimen/common_size_25"
+                android:layout_height="@dimen/common_size_25"
+                android:src="@drawable/dot" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_answer3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="85"
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="A. A group of animals has come down into the valley."
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_16"></TextView>
+    </essential.esl.ui.page.MyItemLayout>
+</LinearLayout>

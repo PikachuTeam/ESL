@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/common_size_8">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/common_size_17"
+        android:paddingLeft="@dimen/common_size_4"
+        android:paddingRight="@dimen/common_size_4"
+        android:paddingTop="@dimen/common_size_17"
+
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarSize="@dimen/common_size_3"
+        android:scrollbarThumbVertical="@color/white">
+
+        <TextView
+            android:id="@+id/tv_description"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/common_size_13"
+            android:paddingRight="@dimen/common_size_13"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_text_size_18" />
+    </ScrollView>
+</LinearLayout>

@@ -87,6 +87,7 @@ public class QuizzesPage extends BasePage {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int i) {
             if (holder instanceof VHHeader) {
                 final VHHeader viewHolder = (VHHeader) holder;
+                viewHolder.tvScore.setText("0/" + list.size());
                 viewHolder.btnReset.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

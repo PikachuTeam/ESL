@@ -31,7 +31,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/common_size_90"
+                    android:layout_height="@dimen/common_size_94"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/background_player">
 

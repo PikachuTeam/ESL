@@ -90,6 +90,7 @@ public class QuizzesPage extends BasePage {
                 viewHolder.btnReset.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        MyAnimation.animZoomWhenOnClick(v, this, 1, 1.05f, 1, 1.05f);
                         list = DataSource.getQuizzes(idConversation);
                         checkMode = false;
                         viewHolder.tvScore.setText("0/" + list.size());
@@ -99,10 +100,12 @@ public class QuizzesPage extends BasePage {
                 viewHolder.btnCheck.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        MyAnimation.animZoomWhenOnClick(v, this, 1, 1.05f, 1, 1.05f);
                         if (isCheckAll()) {
                             checkMode = true;
                             notifyDataSetChanged();
                             viewHolder.tvScore.setText(getNumberAnswerCorrect() + "/" + list.size());
+                            DataSource.updateScore(idConversation, getNumberAnswerCorrect());
                             MyAnimation.animZoomWhenOnClick(viewHolder.tvScore, this, 1, 1.5f, 1, 1.5f);
                         } else
                             fragment.makeMessage(rvListQuizze, R.string.choose_answer_for_all_question);

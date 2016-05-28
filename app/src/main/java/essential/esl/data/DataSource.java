@@ -3,7 +3,9 @@ package essential.esl.data;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import tatteam.com.app_common.sqlite.BaseDataSource;
@@ -76,5 +78,41 @@ public class DataSource extends BaseDataSource {
         cursor.close();
         closeConnection();
         return listConversation;
+    }
+
+    public static void updateScore(int idConversations, int score) {
+        SQLiteDatabase sqLiteDatabase = openConnection();
+        Cursor cursor = sqLiteDatabase.rawQuery("UPDATE Conversations SET Score = ? WHERE ID = ?", new String[]{score + "", idConversations + ""});
+        cursor.moveToFirst();
+        cursor.close();
+        openConnection();
+    }
+
+    public static void updateDownloaded(int idConversations, int score) {
+        SQLiteDatabase sqLiteDatabase = openConnection();
+        Cursor cursor = sqLiteDatabase.rawQuery("UPDATE Conversations SET IsDownloaded = ? WHERE ID = ?", new String[]{score + "", idConversations + ""});
+        cursor.moveToFirst();
+        cursor.close();
+        openConnection();
+    }
+
+    public static int getDownloaded(int idConversations) {
+        SQLiteDatabase sqLiteDatabase = openConnection();
+        Cursor cursor = sqLiteDatabase.rawQuery("select IsDownloaded from Conversations WHERE ID = ?", new String[]{idConversations + ""});
+        cursor.moveToFirst();
+        int isDownloaded = cursor.getInt(0);
+        cursor.close();
+        openConnection();
+        return isDownloaded;
+    }
+
+    public static boolean isFileExists(String name) {
+        File extStore = Environment.getExternalStorageDirectory();
+        File myFile = new File(extStore.getAbsolutePath() + "/Essential/ESLAudios/" + name + ".mp3");
+
+        if (myFile.exists())
+            return true;
+
+        return false;
     }
 }

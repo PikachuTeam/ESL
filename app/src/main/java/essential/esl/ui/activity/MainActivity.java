@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.io.File;
+
 import essential.esl.R;
 import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
@@ -46,6 +48,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         AppCommon.getInstance().increaseLaunchTime();
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), "eslquizzes.db");
+        createFolderAudioIfNeed();
     }
 
     @Override
@@ -54,6 +57,12 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         animSplashLogo();
         replaceParentFragment();
 
+    }
+
+    public void createFolderAudioIfNeed() {
+        File myFolder = new File("/sdcard/Essential/ESLAudios/");
+// have the object build the directory structure, if needed.
+        myFolder.mkdirs();
     }
 
     @Override

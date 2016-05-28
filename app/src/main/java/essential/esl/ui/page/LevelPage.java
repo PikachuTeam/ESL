@@ -106,9 +106,9 @@ public class LevelPage extends BasePage {
                     .into(viewHolder.ivAvatar);
             if (list.get(i).score > 0) {
                 viewHolder.ivStatus.setImageResource(R.drawable.dot);
-                if (list.get(i).score == 5)
+                if (list.get(i).score / list.size() == 1)
                     viewHolder.ivStatus.setColorFilter(fragment.getResources().getColor(R.color.perfect));
-                else if (list.get(i).score == 4)
+                else if (list.get(i).score / list.size() == 8)
                     viewHolder.ivStatus.setColorFilter(fragment.getResources().getColor(R.color.good));
                 else
                     viewHolder.ivStatus.setColorFilter(fragment.getResources().getColor(R.color.bad));

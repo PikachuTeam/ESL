@@ -38,4 +38,9 @@ public class Quizze {
     public void setSelectedAnswer(int i) {
         selectedAnswer = i;
     }
+
+    public int getSelectedAnswer() {
+        return selectedAnswer;
+
+    }
 }

@@ -38,15 +38,28 @@ public class MyItemLayout extends LinearLayout {
         textView.setText(string);
     }
 
-    public void setImage(int id) {
-        imageView.setImageResource(id);
+
+    public void setCorrectStyle() {
+        textView.setTextColor(getResources().getColor(R.color.perfect));
+        imageView.setImageResource(R.drawable.dot);
+        imageView.setColorFilter(getResources().getColor(R.color.perfect));
     }
 
-    public void setTextColor(int id) {
-        textView.setTextColor(id);
+    public void setSelectedStyle() {
+        textView.setTextColor(getResources().getColor(R.color.white));
+        imageView.setImageResource(R.drawable.dot);
+        imageView.setColorFilter(getResources().getColor(R.color.colorPrimaryDark));
     }
 
-    public void setImageColorFilter(int id) {
-        imageView.setColorFilter(id);
+    public void setWrongStyle() {
+        textView.setTextColor(getResources().getColor(R.color.bad));
+        imageView.setImageResource(R.drawable.dot);
+        imageView.setColorFilter(getResources().getColor(R.color.bad));
+    }
+
+    public void setDefautStyle() {
+        textView.setTextColor(getResources().getColor(R.color.white));
+        imageView.setImageResource(R.drawable.dot_outline);
+        imageView.setColorFilter(getResources().getColor(R.color.colorPrimaryDark));
     }
 }

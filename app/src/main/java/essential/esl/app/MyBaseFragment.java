@@ -73,6 +73,11 @@ public abstract class MyBaseFragment extends Fragment {
         getBaseActivity().popFragment();
     }
 
+    public void makeMessage(View view, int idString) {
+        ((MyBaseActivity) getActivity()).makeMessage(view, idString);
+    }
+
+
     public void popToFragment(String transactionTag) {
         getBaseActivity().popToFragment(transactionTag);
     }

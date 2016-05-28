@@ -5,5 +5,5 @@
     <string name="general">GENERAL</string>
     <string name="academy">ACADEMY</string>
     <string name="press_again_to_exit">Press again to exit!</string>
-
+<string name="choose_answer_for_all_question">Please choose answer for all questions !</string>
 </resources>

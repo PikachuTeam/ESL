@@ -85,19 +85,24 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/btn_Upgrade"
                 android:layout_width="@dimen/common_size_90"
-                android:layout_height="@dimen/common_size_30"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/common_size_35"
                 app:cardBackgroundColor="@color/perfect"
                 app:cardCornerRadius="@dimen/common_size_6"
                 app:cardElevation="@dimen/common_size_3">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/common_size_2"
+                    android:layout_marginTop="@dimen/common_size_2"
+
                     android:gravity="center"
+                    android:maxLines="1"
                     android:text="updrade"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/common_text_size_17"
+                    android:textSize="@dimen/common_text_size_16"
                     android:textStyle="bold" />
             </android.support.v7.widget.CardView>
 
@@ -108,12 +113,13 @@
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/btn_share"
-                    android:layout_width="@dimen/common_size_45"
-                    android:layout_height="@dimen/common_size_45"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/common_size_35"
                     android:src="@drawable/share1"
-                    app:backgroundTint="@color/colorPrimaryDark" />
+                    app:backgroundTint="@color/colorPrimaryDark"
+                    app:fabSize="mini" />
             </RelativeLayout>
 
         </LinearLayout>

@@ -4,6 +4,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +27,7 @@ public class HelpfulTip implements View.OnClickListener {
     private Conversation conversation;
     private String level;
     private View parentView;
+    private ScrollView scrollView;
 
     public HelpfulTip(MyBaseFragment fragment, View parentView, Conversation conversation) {
         this.fragment = fragment;
@@ -53,6 +55,7 @@ public class HelpfulTip implements View.OnClickListener {
         btnTips = (ImageView) parentView.findViewById(R.id.btn_Tips);
         background = (RelativeLayout) parentView.findViewById(R.id.background_tips);
         content = (CardView) parentView.findViewById(R.id.tips_content);
+        scrollView = (ScrollView) parentView.findViewById(R.id.tips_parent);
 
         background.setOnClickListener(this);
         content.setOnClickListener(this);
@@ -60,7 +63,12 @@ public class HelpfulTip implements View.OnClickListener {
 
         tvLevel.setText(getLevel());
         tvType.setText(conversation.type);
-        tvTips.setText(SPACE + conversation.helpFulTip);
+        if (conversation.helpFulTip.equals("")) {
+            scrollView.setVisibility(View.GONE);
+        } else {
+            scrollView.setVisibility(View.VISIBLE);
+            tvTips.setText(SPACE + conversation.helpFulTip);
+        }
         tvTopic.setText(conversation.topic);
         tvSpeakers.setText(conversation.speakers);
         Glide.with(fragment)

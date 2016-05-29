@@ -19,12 +19,15 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_quizzes"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+                android:layout_height="match_parent"
+                android:scrollbarSize="@dimen/common_size_3"
+                android:scrollbarThumbVertical="@color/colorPrimary"
+                android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
 
             <LinearLayout
-                android:layout_below="@id/rv_quizzes"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_size_50"
+                android:layout_below="@id/rv_quizzes"
                 android:background="@color/white"></LinearLayout>
         </RelativeLayout>
 

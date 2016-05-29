@@ -60,13 +60,15 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="23"
+                    android:layout_weight="36"
                     android:gravity="center">
 
                     <TextView
                         android:id="@+id/tv_length"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/common_size_10"
+                        android:maxLines="1"
                         android:text="05:34"
                         android:textColor="@color/secondaryTextColor"
                         android:textSize="@dimen/common_text_size_18" />
@@ -76,7 +78,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="33"
+                    android:layout_weight="15"
                     android:gravity="center">
 
 
@@ -85,7 +87,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="12"
+                    android:layout_weight="15"
                     android:gravity="center">
 
                     <ImageView
@@ -98,13 +100,14 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="20"
+                    android:layout_weight="22"
                     android:gravity="center">
 
                     <TextView
                         android:id="@+id/tv_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
                         android:text="3/5"
                         android:textColor="@color/secondaryTextColor"
                         android:textSize="@dimen/common_text_size_18" />

@@ -57,10 +57,12 @@ public class DataSource extends BaseDataSource {
             conversation.speakers = cursor.getString(5);
             conversation.length = cursor.getString(6);
             conversation.title = cursor.getString(7);
-            conversation.helpFulTip = cursor.getString(8);
             conversation.avatarImageUrl = cursor.getString(10);
             conversation.audioUrl = cursor.getString(13);
-
+            if (cursor.getString(8) == null)
+                conversation.helpFulTip = "";
+            else
+                conversation.helpFulTip = cursor.getString(8);
             if (cursor.getString(14) == null)
                 conversation.script = "";
             else

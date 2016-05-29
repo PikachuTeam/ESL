@@ -1,10 +1,20 @@
 package essential.esl.ui.activity;
 
+import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.PowerManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -18,11 +28,16 @@ import tatteam.com.app_common.sqlite.DatabaseLoader;
 import tatteam.com.app_common.util.CloseAppHandler;
 
 public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCloseAppListener {
+    private static final int PERMISSION_REQUEST_CODE = 1;
     private ObjectAnimator logoScaleX, logoScaleY, logoTransTop, logoShowX, logoShowX1, logoHideX, logoHideX1;
     private ImageView logo;
     private CloseAppHandler closeAppHandler;
     private FrameLayout fragmentParent;
     private int DURATION_ANIM = 600;
+    private String PERMISSION = "requestPermission";
+    private String CHECK_PERMISSION = "checkpermission";
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected int getParentFragmentContainerId() {
@@ -34,6 +49,29 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         return R.layout.activity_main;
     }
 
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    editor.putBoolean(CHECK_PERMISSION, true);
+                    editor.commit();
+                    createFolderAudioIfNeed();
+
+
+                } else {
+                    editor.putBoolean(CHECK_PERMISSION, false);
+                    editor.commit();
+                    onCloseActivity();
+                }
+                break;
+        }
+    }
+
     @Override
     protected void onCreateContentView() {
         addFragmentContent();
@@ -41,14 +79,24 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         fragmentParent = (FrameLayout) findViewById(getParentFragmentContainerId());
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
+        sharedPref = this.getSharedPreferences(
+                PERMISSION, Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "MyWakelockTag");
+        wakeLock.acquire();
+
     }
+
 
     @Override
     protected void onInitAppCommon() {
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         AppCommon.getInstance().increaseLaunchTime();
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), "eslquizzes.db");
-        createFolderAudioIfNeed();
+
     }
 
     @Override
@@ -56,12 +104,16 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         enableOnBackPressed();
         animSplashLogo();
         replaceParentFragment();
+        boolean checkPermission = sharedPref.getBoolean(CHECK_PERMISSION, false);
+        if (checkPermission == false) {
+            requestPermission();
+        } else {
+        }
 
     }
 
     public void createFolderAudioIfNeed() {
         File myFolder = new File("/sdcard/Essential/ESLAudios/");
-// have the object build the directory structure, if needed.
         myFolder.mkdirs();
     }
 
@@ -71,7 +123,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     }
 
     private void replaceParentFragment() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
         HomeFragment fragment = new HomeFragment();
         transaction.setCustomAnimations(R.anim.top_enter, R.anim.fade_out);
         transaction.replace(getParentFragmentContainerId(), fragment, fragment.getClass().getName());

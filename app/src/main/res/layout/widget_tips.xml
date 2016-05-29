@@ -168,6 +168,7 @@
                 android:scaleType="fitStart" />
 
             <ScrollView
+                android:id="@+id/tips_parent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbarSize="@dimen/common_size_3"

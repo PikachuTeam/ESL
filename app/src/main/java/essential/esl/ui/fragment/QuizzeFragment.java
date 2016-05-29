@@ -47,13 +47,15 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     public MyViewPagerAdapter adapter;
     private ArrayList<ImageView> dots;
     private MediaPlayer mediaPlayer;
-    private Handler mHandler;
+    private Handler mHandler, mHandler2;
     private TextView tvCurrentTime, tvDuration;
     private ImageView btnPlay;
     private LinearLayout btnBackWard, btnForWard;
     private SeekBar seekBar;
+    private TextView tvDownload;
     private boolean isLoading = false;
     private boolean isSetUpAudio = false;
+    private int downloadPercent = 0;
 
 
     @Override
@@ -67,6 +69,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         helpfulTip = new HelpfulTip(this, rootView, conversation);
         mediaPlayer = new MediaPlayer();
         mHandler = new Handler();
+        mHandler2 = new Handler();
         init(rootView);
         setupViewPager();
         selectPage(0);
@@ -76,15 +79,18 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     private Runnable mUpdateTimeTask = new Runnable() {
 
         public void run() {
-
             long totalDuration = mediaPlayer.getDuration();
             long currentDuration = mediaPlayer.getCurrentPosition();
-
-
             tvCurrentTime.setText(getStringTime(currentDuration));
             int progress = (int) (getProgressPercentage(currentDuration, totalDuration));
             seekBar.setProgress(progress);
+            mHandler.postDelayed(this, 30);
+        }
+    };
+    private Runnable mUpdateDownload = new Runnable() {
 
+        public void run() {
+            tvDownload.setText(downloadPercent + "%");
             mHandler.postDelayed(this, 30);
         }
     };
@@ -133,6 +139,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         tvCurrentTime = (TextView) rootView.findViewById(R.id.curentLength);
         tvDuration = (TextView) rootView.findViewById(R.id.duration);
         btnPlay = (ImageView) rootView.findViewById(R.id.btn_play);
+        tvDownload = (TextView) rootView.findViewById(R.id.tv_download);
         btnBackWard = (LinearLayout) rootView.findViewById(R.id.btn_backWard);
         btnForWard = (LinearLayout) rootView.findViewById(R.id.btn_forWard);
         seekBar = (SeekBar) rootView.findViewById(R.id.seekbar);
@@ -160,6 +167,16 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
             mHandler.removeCallbacks(mUpdateTimeTask);
             super.onBackPress();
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (isSetUpAudio)
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+                btnPlay.setImageResource(R.drawable.play);
+            }
     }
 
     @Override
@@ -194,13 +211,18 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
                 if (DataSource.isFileExists(conversation.id + "")) {
                     playAudioFromSdCard();
                 } else {
-
+                    seekBar.setEnabled(false);
+                    btnPlay.setImageResource(R.drawable.play_out);
+                    tvDownload.setVisibility(View.VISIBLE);
+                    mHandler2.postDelayed(mUpdateDownload, 60);
+                    btnPlay.setEnabled(false);
+                    isLoading = true;
                     Ion.with(this)
                             .load(conversation.audioUrl)
                             .progress(new ProgressCallback() {
                                 @Override
                                 public void onProgress(long downloaded, long total) {
-                                    if (isLoading == false) isLoading = true;
+                                    downloadPercent = (int) (downloaded * 100 / total);
                                 }
                             })// write to a file
                             .write(new File("/sdcard/Essential/ESLAudios/" + conversation.id + ".mp3"))
@@ -209,8 +231,12 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
                                 @Override
                                 public void onCompleted(Exception e, File result) {
                                     isLoading = false;
-
+                                    seekBar.setEnabled(true);
+                                    mHandler2.removeCallbacks(mUpdateDownload);
+                                    tvDownload.setVisibility(View.INVISIBLE);
+                                    btnPlay.setEnabled(true);
                                     playAudioFromSdCard();
+
                                 }
                             });
                 }
@@ -245,6 +271,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     }
 
     public void playAudioFromSdCard() {
+        btnPlay.setImageResource(R.drawable.pause);
         mediaPlayer.reset();
         String mediaPath = "/sdcard/Essential/ESLAudios/" + conversation.id + ".mp3";
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -294,15 +321,18 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        mHandler.removeCallbacks(mUpdateTimeTask);
+        if (isSetUpAudio)
+            mHandler.removeCallbacks(mUpdateTimeTask);
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        int totalDuration = mediaPlayer.getDuration();
-        int currentDuration = progressToTimer(seekBar.getProgress(), totalDuration);
-        mediaPlayer.seekTo(currentDuration);
-        updateSeekBar();
+        if (isSetUpAudio) {
+            int totalDuration = mediaPlayer.getDuration();
+            int currentDuration = progressToTimer(seekBar.getProgress(), totalDuration);
+            mediaPlayer.seekTo(currentDuration);
+            updateSeekBar();
+        } else seekBar.setProgress(0);
     }
 
     public void updateSeekBar() {
@@ -355,6 +385,8 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
+            mHandler.removeCallbacks(mUpdateTimeTask);
+            mHandler2.removeCallbacks(mUpdateDownload);
             pages.get(position).destroy();
         }
 

@@ -1,12 +1,18 @@
 package essential.esl.ui.fragment;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -56,6 +62,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     private boolean isLoading = false;
     private boolean isSetUpAudio = false;
     private int downloadPercent = 0;
+    private boolean isInApp = true;
 
 
     @Override
@@ -132,6 +139,12 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         dots.get(position).setColorFilter(getResources().getColor(R.color.colorPrimaryDark));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        isInApp = true;
+    }
+
     private void init(View rootView) {
         btnBack = (LinearLayout) rootView.findViewById(R.id.btn_Back);
         btnShare = (LinearLayout) rootView.findViewById(R.id.btn_Share);
@@ -148,6 +161,15 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         dots.add((ImageView) rootView.findViewById(R.id.dot1));
         dots.add((ImageView) rootView.findViewById(R.id.dot2));
         dots.add((ImageView) rootView.findViewById(R.id.dot3));
+        if (conversation.keyVocabulary.equals("")) {
+            dots.get(1).setVisibility(View.GONE);
+            dots.remove(1);
+        }
+
+        if (conversation.script.equals("")) {
+            dots.get(dots.size() - 1).setVisibility(View.GONE);
+            dots.remove(dots.size() - 1);
+        }
         btnBack.setOnClickListener(this);
         btnShare.setOnClickListener(this);
         btnPlay.setOnClickListener(this);
@@ -172,6 +194,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     @Override
     public void onStop() {
         super.onStop();
+        isInApp = false;
         if (isSetUpAudio)
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
@@ -211,34 +234,38 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
                 if (DataSource.isFileExists(conversation.id + "")) {
                     playAudioFromSdCard();
                 } else {
-                    seekBar.setEnabled(false);
-                    btnPlay.setImageResource(R.drawable.play_out);
-                    tvDownload.setVisibility(View.VISIBLE);
-                    mHandler2.postDelayed(mUpdateDownload, 60);
-                    btnPlay.setEnabled(false);
-                    isLoading = true;
-                    Ion.with(this)
-                            .load(conversation.audioUrl)
-                            .progress(new ProgressCallback() {
-                                @Override
-                                public void onProgress(long downloaded, long total) {
-                                    downloadPercent = (int) (downloaded * 100 / total);
-                                }
-                            })// write to a file
-                            .write(new File("/sdcard/Essential/ESLAudios/" + conversation.id + ".mp3"))
-                            // run a callback on completion
-                            .setCallback(new FutureCallback<File>() {
-                                @Override
-                                public void onCompleted(Exception e, File result) {
-                                    isLoading = false;
-                                    seekBar.setEnabled(true);
-                                    mHandler2.removeCallbacks(mUpdateDownload);
-                                    tvDownload.setVisibility(View.INVISIBLE);
-                                    btnPlay.setEnabled(true);
-                                    playAudioFromSdCard();
+                    if (isOnline()) {
+                        seekBar.setEnabled(false);
+                        btnPlay.setImageResource(R.drawable.play_out);
+                        tvDownload.setVisibility(View.VISIBLE);
+                        mHandler2.postDelayed(mUpdateDownload, 60);
+                        btnPlay.setEnabled(false);
+                        isLoading = true;
+                        Ion.with(this)
+                                .load(conversation.audioUrl)
+                                .progress(new ProgressCallback() {
+                                    @Override
+                                    public void onProgress(long downloaded, long total) {
+                                        downloadPercent = (int) (downloaded * 100 / total);
+                                    }
+                                })// write to a file
+                                .write(new File("/sdcard/Essential/ESLAudios/" + conversation.id + ".mp3"))
+                                // run a callback on completion
+                                .setCallback(new FutureCallback<File>() {
+                                    @Override
+                                    public void onCompleted(Exception e, File result) {
+                                        isLoading = false;
+                                        seekBar.setEnabled(true);
+                                        mHandler2.removeCallbacks(mUpdateDownload);
+                                        tvDownload.setVisibility(View.INVISIBLE);
+                                        btnPlay.setEnabled(true);
+                                        if (isInApp) {
+                                            playAudioFromSdCard();
+                                        } else btnPlay.setImageResource(R.drawable.play);
 
-                                }
-                            });
+                                    }
+                                });
+                    } else showDialogWifi();
                 }
             } else {
                 btnPlay.setImageResource(R.drawable.pause);
@@ -353,17 +380,55 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         mediaPlayer.seekTo(0);
     }
 
+    public boolean isOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getBaseActivity().getSystemService(getBaseActivity().CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
+    }
+
+    public void showDialogWifi() {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        alertDialogBuilder.setMessage("Please Check Your Network Connection").setTitle("Connection Failed");
+
+        alertDialogBuilder.setPositiveButton("Open WIFI Setting", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                getBaseActivity().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                btnPlay.setImageResource(R.drawable.play);
+            }
+        });
+        alertDialogBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                btnPlay.setImageResource(R.drawable.play);
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
     public class MyViewPagerAdapter extends PagerAdapter {
         private ArrayList<BasePage> pages;
 
         public MyViewPagerAdapter(MyBaseActivity activity, MyBaseFragment fragment) {
             pages = new ArrayList<>();
             QuizzesPage quizzesPage = new QuizzesPage(fragment, activity, conversation.id);
-            DescriptionPage scriptPage = new DescriptionPage(fragment, activity, conversation.script);
-            DescriptionPage keyVocabularyPage = new DescriptionPage(fragment, activity, conversation.keyVocabulary);
             pages.add(quizzesPage);
-            pages.add(scriptPage);
-            pages.add(keyVocabularyPage);
+            if (!conversation.keyVocabulary.equals("")) {
+                DescriptionPage keyVocabularyPage = new DescriptionPage(fragment, activity, conversation.keyVocabulary, "Key Vocabulary");
+                pages.add(keyVocabularyPage);
+            }
+            if (!conversation.script.equals("")) {
+                DescriptionPage scriptPage = new DescriptionPage(fragment, activity, conversation.script, "Transcription");
+                pages.add(scriptPage);
+            }
+
 
         }
 

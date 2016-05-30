@@ -1,6 +1,12 @@
 package essential.esl.ui.page;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceActivity;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +25,7 @@ import essential.esl.app.MyBaseFragment;
 import essential.esl.app.MyItemLayout;
 import essential.esl.data.DataSource;
 import essential.esl.data.Quizze;
+import essential.esl.ui.activity.MainActivity;
 
 /**
  * Created by admin on 5/26/2016.
@@ -56,6 +63,8 @@ public class QuizzesPage extends BasePage {
         PreferenceActivity.Header header = new PreferenceActivity.Header();
         return header;
     }
+
+
 
     public class MyRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

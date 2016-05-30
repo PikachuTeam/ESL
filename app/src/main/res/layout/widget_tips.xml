@@ -15,7 +15,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/tips_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/common_size_15"
         app:cardElevation="0dp">
 
@@ -170,7 +170,7 @@
             <ScrollView
                 android:id="@+id/tips_parent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:scrollbarSize="@dimen/common_size_3"
                 android:scrollbarThumbVertical="@color/colorPrimary">
 

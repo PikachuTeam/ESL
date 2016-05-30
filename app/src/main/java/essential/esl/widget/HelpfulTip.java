@@ -72,7 +72,7 @@ public class HelpfulTip implements View.OnClickListener {
         tvTopic.setText(conversation.topic);
         tvSpeakers.setText(conversation.speakers);
         Glide.with(fragment)
-                .load(conversation.avatarImageUrl).centerCrop().crossFade().error(R.drawable.err)
+                .load(conversation.avatarImageUrl).centerCrop().crossFade().error(R.drawable.logo)
                 .into(ivAvatar);
     }
 

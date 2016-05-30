@@ -102,7 +102,7 @@ public class LevelPage extends BasePage {
             viewHolder.tvStatus.setText(list.get(i).score + "/" + list.get(i).totalQuiz);
             viewHolder.tvLength.setText(list.get(i).length);
             Glide.with(fragment)
-                    .load(list.get(i).avatarImageUrl).centerCrop().crossFade().error(R.drawable.err)
+                    .load(list.get(i).avatarImageUrl).centerCrop().crossFade().error(R.drawable.logo)
                     .into(viewHolder.ivAvatar);
             if (list.get(i).score > 0) {
                 viewHolder.ivStatus.setImageResource(R.drawable.dot);

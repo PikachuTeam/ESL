@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_size_5"
         android:layout_marginBottom="@dimen/common_size_15"
-        android:gravity="center"
+        android:gravity="center"    android:textIsSelectable="true"
+
         android:scaleX="1.2"
         android:text="Listening Quiz"
 
@@ -32,6 +33,7 @@
 
         <TextView
             android:id="@+id/tv_description"
+            android:textIsSelectable="true"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

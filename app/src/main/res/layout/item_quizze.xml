@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="What situation has resulted because of the extremely cold temperatures snow in the mountains?"
         android:textColor="@color/white"
+        android:textIsSelectable="true"
         android:textSize="@dimen/common_text_size_16" />
 
     <essential.esl.app.MyItemLayout

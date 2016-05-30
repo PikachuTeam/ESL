@@ -27,7 +27,7 @@ public class HelpfulTip implements View.OnClickListener {
     private Conversation conversation;
     private String level;
     private View parentView;
-    private ScrollView scrollView;
+    private RelativeLayout scrollView;
 
     public HelpfulTip(MyBaseFragment fragment, View parentView, Conversation conversation) {
         this.fragment = fragment;
@@ -55,7 +55,7 @@ public class HelpfulTip implements View.OnClickListener {
         btnTips = (ImageView) parentView.findViewById(R.id.btn_Tips);
         background = (RelativeLayout) parentView.findViewById(R.id.background_tips);
         content = (CardView) parentView.findViewById(R.id.tips_content);
-        scrollView = (ScrollView) parentView.findViewById(R.id.tips_parent);
+        scrollView = (RelativeLayout) parentView.findViewById(R.id.tips_parent);
 
         background.setOnClickListener(this);
         content.setOnClickListener(this);

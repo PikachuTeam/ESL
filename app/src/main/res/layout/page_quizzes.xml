@@ -8,6 +8,7 @@
     <TextView
         android:id="@+id/tv_header"
         android:layout_width="match_parent"
+        android:textIsSelectable="true"
 
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/common_size_15"

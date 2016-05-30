@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/common_size_10"
+
         android:gravity="center_vertical"
         android:text="A. A group of animals has come down into the valley."
+        android:textIsSelectable="true"
         android:textSize="@dimen/common_text_size_16"></TextView>
 </merge>

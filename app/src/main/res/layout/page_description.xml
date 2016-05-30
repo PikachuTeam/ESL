@@ -5,41 +5,53 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/common_size_10">
 
-    <TextView
-        android:id="@+id/tv_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_size_5"
-        android:layout_marginBottom="@dimen/common_size_15"
-        android:gravity="center"    android:textIsSelectable="true"
-
-        android:scaleX="1.2"
-        android:text="Listening Quiz"
-
-        android:textColor="@color/white"
-        android:textSize="@dimen/common_text_size_20"
-        android:textStyle="italic|bold" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/common_size_17"
-        android:paddingLeft="@dimen/common_size_4"
-        android:paddingRight="@dimen/common_size_4"
-
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarSize="@dimen/common_size_3"
         android:scrollbarThumbVertical="@color/colorPrimaryDark">
 
-        <TextView
-            android:id="@+id/tv_description"
-            android:textIsSelectable="true"
-
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/common_size_13"
-            android:paddingRight="@dimen/common_size_13"
-            android:textColor="@color/white"
-            android:textSize="@dimen/common_text_size_18" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_size_15"
+                android:layout_marginTop="@dimen/common_size_5"
+                android:gravity="center"
+                android:scaleX="1.2"
+                android:text="Listening Quiz"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_text_size_21"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/common_size_17"
+                android:paddingLeft="@dimen/common_size_4"
+                android:paddingRight="@dimen/common_size_4"
+
+                >
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/common_size_13"
+                    android:paddingRight="@dimen/common_size_13"
+                    android:textColor="@color/white"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/common_text_size_18" />
+            </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
+
+
 </LinearLayout>

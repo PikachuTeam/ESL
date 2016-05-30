@@ -19,7 +19,7 @@ public class DescriptionPage extends BasePage {
         tvDescription = (TextView) getContent().findViewById(R.id.tv_description);
         tvHeader = (TextView) getContent().findViewById(R.id.tv_header);
         tvHeader.setText(header);
-        tvDescription.setText(Html.fromHtml(stringContent));
+        tvDescription.setText(Html.fromHtml(stringContent.trim()));
     }
 
     @Override

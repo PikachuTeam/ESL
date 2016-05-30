@@ -18,20 +18,22 @@
         android:id="@+id/answer1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/common_size_10" />
+        android:paddingBottom="@dimen/common_size_3"
+        android:paddingTop="@dimen/common_size_3" />
 
     <essential.esl.app.MyItemLayout
         android:id="@+id/answer2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/common_size_10" />
+        android:paddingBottom="@dimen/common_size_3"
+        android:paddingTop="@dimen/common_size_3"  />
 
     <essential.esl.app.MyItemLayout
         android:id="@+id/answer3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/common_size_10">
-
+        android:paddingBottom="@dimen/common_size_3"
+        android:paddingTop="@dimen/common_size_3" >
 
     </essential.esl.app.MyItemLayout>
 

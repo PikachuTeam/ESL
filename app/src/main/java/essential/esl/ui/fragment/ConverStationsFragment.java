@@ -1,6 +1,7 @@
 package essential.esl.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -35,8 +36,15 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
     }
 
     @Override
-    protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         idCat = getArguments().getInt("idCat");
+        adapter = new MyViewPagerAdapter((MyBaseActivity) getActivity(), this);
+    }
+
+    @Override
+    protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
+
         init(rootView);
 
     }
@@ -50,7 +58,6 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
 
         btnBack.setOnClickListener(this);
         btnShare.setOnClickListener(this);
-        adapter = new MyViewPagerAdapter((MyBaseActivity) getActivity(), this);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         setTitle();
@@ -94,26 +101,28 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
         public MyViewPagerAdapter(MyBaseActivity activity, MyBaseFragment fragment) {
             this.activity = activity;
             this.fragment = fragment;
-            pages = new ArrayList<>();
-            switch (idCat) {
-                case 1:
-                    for (int i = 1; i <= 3; i++) {
-                        LevelPage page = new LevelPage(fragment, activity, idCat, i);
-                        pages.add(page);
-                    }
-                    break;
-                case 2:
-                    for (int i = 1; i <= 2; i++) {
-                        LevelPage page = new LevelPage(fragment, activity, idCat, i);
-                        pages.add(page);
-                    }
-                    break;
-                case 3:
-                    for (int i = 2; i <= 4; i++) {
-                        LevelPage page = new LevelPage(fragment, activity, idCat, i);
-                        pages.add(page);
-                    }
-                    break;
+            if (pages == null) {
+                pages = new ArrayList<>();
+                switch (idCat) {
+                    case 1:
+                        for (int i = 1; i <= 3; i++) {
+                            LevelPage page = new LevelPage(fragment, activity, idCat, i);
+                            pages.add(page);
+                        }
+                        break;
+                    case 2:
+                        for (int i = 1; i <= 2; i++) {
+                            LevelPage page = new LevelPage(fragment, activity, idCat, i);
+                            pages.add(page);
+                        }
+                        break;
+                    case 3:
+                        for (int i = 2; i <= 4; i++) {
+                            LevelPage page = new LevelPage(fragment, activity, idCat, i);
+                            pages.add(page);
+                        }
+                        break;
+                }
             }
         }
 

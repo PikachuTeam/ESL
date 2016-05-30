@@ -5,20 +5,7 @@
     android:orientation="vertical"
     android:padding="@dimen/common_size_10">
 
-    <TextView
-        android:id="@+id/tv_header"
-        android:layout_width="match_parent"
-        android:textIsSelectable="true"
 
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/common_size_15"
-        android:layout_marginTop="@dimen/common_size_5"
-        android:gravity="center"
-        android:scaleX="1.2"
-        android:text="Listening Quiz"
-        android:textColor="@color/white"
-        android:textSize="@dimen/common_text_size_20"
-        android:textStyle="italic|bold" />
 
     <ScrollView
         android:layout_width="match_parent"

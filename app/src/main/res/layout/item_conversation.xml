@@ -37,7 +37,6 @@
                 android:layout_marginTop="@dimen/common_size_3"
                 android:maxLines="2"
                 android:text="A Day School"
-                android:textIsSelectable="true"
                 android:textSize="@dimen/common_text_size_18" />
 
             <LinearLayout

@@ -23,6 +23,8 @@ public class Conversation implements Serializable {
     public int isDownloaded;
     public int totalQuiz;
     public int score;
+    public int isFree;
+    public int isFavorite;
 
 
 }

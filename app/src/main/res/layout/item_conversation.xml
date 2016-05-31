@@ -35,7 +35,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/common_size_7"
                 android:layout_marginTop="@dimen/common_size_3"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
                 android:maxLines="2"
+                android:scrollHorizontally="true"
                 android:text="A Day School"
                 android:textSize="@dimen/common_text_size_18" />
 

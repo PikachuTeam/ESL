@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -63,6 +64,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     private boolean isSetUpAudio = false;
     private int downloadPercent = 0;
     private boolean isInApp = true;
+    private ImageView iconFavorite;
 
 
     @Override
@@ -155,18 +157,21 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         tvDownload = (TextView) rootView.findViewById(R.id.tv_download);
         btnBackWard = (LinearLayout) rootView.findViewById(R.id.btn_backWard);
         btnForWard = (LinearLayout) rootView.findViewById(R.id.btn_forWard);
+        iconFavorite = (ImageView) rootView.findViewById(R.id.iv_share);
+        iconFavorite.setImageResource(R.drawable.star);
+
         seekBar = (SeekBar) rootView.findViewById(R.id.seekbar);
         tvDuration.setText(conversation.length);
         dots = new ArrayList<>();
         dots.add((ImageView) rootView.findViewById(R.id.dot1));
         dots.add((ImageView) rootView.findViewById(R.id.dot2));
         dots.add((ImageView) rootView.findViewById(R.id.dot3));
-        if (conversation.keyVocabulary.equals("")) {
+        if (conversation.script.equals("")) {
             dots.get(1).setVisibility(View.GONE);
             dots.remove(1);
         }
 
-        if (conversation.script.equals("")) {
+        if (conversation.keyVocabulary.equals("")) {
             dots.get(dots.size() - 1).setVisibility(View.GONE);
             dots.remove(dots.size() - 1);
         }
@@ -179,6 +184,15 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
 
         tvTitle = (TextView) rootView.findViewById(R.id.tv_title);
         tvTitle.setText(conversation.title);
+        tvTitle.setSelected(true);
+
+        if (conversation.isFavorite > 0) {
+            iconFavorite.setColorFilter(getResources().getColor(R.color.star1));
+        } else {
+            iconFavorite.setColorFilter(getResources().getColor(R.color.star2));
+        }
+
+
     }
 
     @Override
@@ -214,6 +228,16 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
                 activity.onBackPressed();
                 break;
             case R.id.btn_Share:
+                if (DataSource.getFavorite(conversation.id) == 0) {
+                    DataSource.setFavorite(conversation.id);
+                    iconFavorite.setColorFilter(getResources().getColor(R.color.star1));
+                    conversation.isFavorite = DataSource.getFavorite(conversation.id);
+                } else {
+                    DataSource.removeFavorite(conversation.id);
+                    iconFavorite.setColorFilter(getResources().getColor(R.color.star2));
+                    conversation.isFavorite = DataSource.getFavorite(conversation.id);
+
+                }
                 break;
             case R.id.btn_backWard:
                 seekBackward();
@@ -420,16 +444,14 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
             pages = new ArrayList<>();
             QuizzesPage quizzesPage = new QuizzesPage(fragment, activity, conversation.id);
             pages.add(quizzesPage);
-            if (!conversation.keyVocabulary.equals("")) {
-                DescriptionPage keyVocabularyPage = new DescriptionPage(fragment, activity, conversation.keyVocabulary, "Key Vocabulary");
-                pages.add(keyVocabularyPage);
-            }
             if (!conversation.script.equals("")) {
                 DescriptionPage scriptPage = new DescriptionPage(fragment, activity, conversation.script, "Transcription");
                 pages.add(scriptPage);
             }
-
-
+            if (!conversation.keyVocabulary.equals("")) {
+                DescriptionPage keyVocabularyPage = new DescriptionPage(fragment, activity, conversation.keyVocabulary, "Key Vocabulary");
+                pages.add(keyVocabularyPage);
+            }
         }
 
         @Override

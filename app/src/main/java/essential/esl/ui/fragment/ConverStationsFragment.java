@@ -16,6 +16,7 @@ import essential.esl.R;
 import essential.esl.app.MyAnimation;
 import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
+import essential.esl.data.Conversation;
 import essential.esl.ui.page.LevelPage;
 import essential.esl.ui.activity.MainActivity;
 
@@ -39,14 +40,16 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         idCat = getArguments().getInt("idCat");
-        adapter = new MyViewPagerAdapter((MyBaseActivity) getActivity(), this);
     }
 
     @Override
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
 
+        if (adapter == null) {
+            adapter = new MyViewPagerAdapter((MyBaseActivity) getActivity(), this);
+        } else
+            adapter.updateData();
         init(rootView);
-
     }
 
     public void init(View rootView) {
@@ -126,11 +129,17 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
             }
         }
 
+        public void updateData() {
+            for (int i = 0; i < pages.size(); i++) {
+                pages.get(i).updateData();
+            }
+
+        }
+
         @Override
         public int getCount() {
             return pages.size();
         }
-
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {

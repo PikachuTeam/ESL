@@ -20,4 +20,6 @@
     <color name="background_tips">#55000000</color>
     <color name="primary_text">#0095ba</color>
     <color name="background_quizze">#363634</color>
+    <color name="star1">#ffff00</color>
+    <color name="star2">#ececec</color>F
 </resources>

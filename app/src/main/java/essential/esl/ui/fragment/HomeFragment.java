@@ -53,6 +53,10 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
                 case R.id.btn_Upgrade:
                     break;
                 case R.id.btn_share:
+                    FavoriteFragment favoriteFragment = new FavoriteFragment();
+                    replaceFragment(favoriteFragment, favoriteFragment.toString());
+                    MainActivity activity = (MainActivity) getActivity();
+                    activity.animHideLogo();
                     break;
             }
 

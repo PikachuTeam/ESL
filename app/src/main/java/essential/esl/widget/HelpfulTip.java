@@ -20,8 +20,7 @@ import essential.esl.data.Conversation;
 public class HelpfulTip implements View.OnClickListener {
     private ImageView btnTips, ivAvatar;
     private TextView tvLevel, tvTopic, tvType, tvSpeakers, tvTips;
-    private RelativeLayout background;
-    private CardView content;
+    private RelativeLayout background, btnHide;
     private MyBaseFragment fragment;
     private String SPACE = "                           ";
     private Conversation conversation;
@@ -54,12 +53,11 @@ public class HelpfulTip implements View.OnClickListener {
         ivAvatar = (ImageView) parentView.findViewById(R.id.imageAvatar);
         btnTips = (ImageView) parentView.findViewById(R.id.btn_Tips);
         background = (RelativeLayout) parentView.findViewById(R.id.background_tips);
-        content = (CardView) parentView.findViewById(R.id.tips_content);
+        btnHide = (RelativeLayout) parentView.findViewById(R.id.btn_Hide);
         scrollView = (RelativeLayout) parentView.findViewById(R.id.tips_parent);
 
-        background.setOnClickListener(this);
-        content.setOnClickListener(this);
         btnTips.setOnClickListener(this);
+        btnHide.setOnClickListener(this);
 
         tvLevel.setText(getLevel());
         tvType.setText(conversation.type);
@@ -79,10 +77,15 @@ public class HelpfulTip implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_Tips) {
-            MyAnimation.animZoomWhenOnClick(v, this, 1, 1.1f, 1, 1.1f);
-            background.setVisibility(View.VISIBLE);
-        } else if (id == R.id.background_tips) background.setVisibility(View.GONE);
+        switch (id) {
+            case R.id.btn_Tips:
+                MyAnimation.animZoomWhenOnClick(v, this, 1, 1.1f, 1, 1.1f);
+                background.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btn_Hide:
+                hideTips();
+                break;
+        }
     }
 
     public String getLevel() {

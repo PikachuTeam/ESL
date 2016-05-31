@@ -82,6 +82,11 @@ public class LevelPage extends BasePage {
     }
 
 
+    public void updateData() {
+        adapterPhrase.updateData();
+    }
+
+
     public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder> {
         public ArrayList<Conversation> list;
 
@@ -129,6 +134,12 @@ public class LevelPage extends BasePage {
         @Override
         public int getItemCount() {
             return list.size();
+        }
+
+        public void updateData() {
+            listConversation = DataSource.getConversation(CATID, LEVEL);
+            list = listConversation;
+            notifyDataSetChanged();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

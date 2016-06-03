@@ -3,18 +3,15 @@ package essential.esl.ui.activity;
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.PowerManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.File;
 
@@ -28,14 +25,17 @@ import tatteam.com.app_common.sqlite.DatabaseLoader;
 import tatteam.com.app_common.util.CloseAppHandler;
 
 public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCloseAppListener {
-    private static final int PERMISSION_REQUEST_CODE = 1;
+    private final int PERMISSION_REQUEST_CODE = 1;
+    public static final String ESL = "englishsecondlanguage";
+    public static final String CHECK_PERMISSION = "checkpermission";
+    public static final String CHECK_VERSION = "checkversion";
+    private static boolean VERSION_CODE = false;
     private ObjectAnimator logoScaleX, logoScaleY, logoTransTop, logoShowX, logoShowX1, logoHideX, logoHideX1;
     private ImageView logo;
     private CloseAppHandler closeAppHandler;
     private FrameLayout fragmentParent;
     private int DURATION_ANIM = 600;
-    private String PERMISSION = "requestPermission";
-    private String CHECK_PERMISSION = "checkpermission";
+
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
 
@@ -51,6 +51,15 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
 
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
+    public static boolean isProVersion() {
+        return VERSION_CODE;
+    }
+
+    public static void setVersionCode(boolean version) {
+        VERSION_CODE = version;
+
     }
 
     @Override
@@ -80,7 +89,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         closeAppHandler = new CloseAppHandler(this, false);
         closeAppHandler.setListener(this);
         sharedPref = this.getSharedPreferences(
-                PERMISSION, Context.MODE_PRIVATE);
+                ESL, Context.MODE_PRIVATE);
         editor = sharedPref.edit();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
@@ -96,6 +105,8 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         AppCommon.getInstance().increaseLaunchTime();
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), "eslquizzes.db");
+//        setVersionCode(sharedPref.getBoolean(CHECK_VERSION, false));
+        setVersionCode(false);
 
     }
 
@@ -170,7 +181,13 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
             getCurrentFragment().onBackPress();
             if (fragmentCount == 1)
                 animShowLogo();
-        } else if (!getStatusLoading()) closeAppHandler.setKeyBackPress(this);
+        } else if (getCurrentFragment() instanceof HomeFragment) {
+            HomeFragment homeFragment = (HomeFragment) getCurrentFragment();
+            if (homeFragment.actionsMenu.isExpanded()) homeFragment.actionsMenu.collapse();
+            else if (!getStatusLoading()) closeAppHandler.setKeyBackPress(this);
+        }
+
+
     }
 
     @Override

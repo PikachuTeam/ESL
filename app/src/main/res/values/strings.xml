@@ -2,9 +2,14 @@
     <string name="app_name">ESL</string>
     <string name="english_second_language">ENGLISH SECOND LANGUAGE</string>
     <string name="basic">BASIC</string>
-    <string name="favorite">FAVORITE</string>
     <string name="general">GENERAL</string>
     <string name="academy">ACADEMY</string>
     <string name="press_again_to_exit">Press again to exit!</string>
-<string name="choose_answer_for_all_question">Please choose answer for all questions !</string>
+    <string name="choose_answer_for_all_question">Please choose answer for all questions !</string>
+    <string name="unlock">Please upgrade to ProVersion</string>
+    <string name="favorite">FAVORITE</string>
+    <string name="share">SHARE</string>
+    <string name="feedback">FEEDBACK</string>
+    <string name="more_app">MORE APP</string>
+
 </resources>

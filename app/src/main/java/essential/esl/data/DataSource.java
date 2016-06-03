@@ -193,9 +193,9 @@ public class DataSource extends BaseDataSource {
         openConnection();
     }
 
-    public static void updateDownloaded(int idConversations, int score) {
+    public static void updateDownloaded(int idConversations) {
         SQLiteDatabase sqLiteDatabase = openConnection();
-        Cursor cursor = sqLiteDatabase.rawQuery("UPDATE Conversations SET IsDownloaded = ? WHERE ID = ?", new String[]{score + "", idConversations + ""});
+        Cursor cursor = sqLiteDatabase.rawQuery("UPDATE Conversations SET IsDownloaded = 1 WHERE ID = ?", new String[]{idConversations + ""});
         cursor.moveToFirst();
         cursor.close();
         openConnection();

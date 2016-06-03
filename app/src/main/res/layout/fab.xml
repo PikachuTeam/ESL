@@ -1,0 +1,62 @@
+<com.getbase.floatingactionbutton.FloatingActionsMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/multiple_actions"
+    android:layout_width="@dimen/common_size_100"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_gravity="bottom|right"
+    android:layout_marginRight="@dimen/common_size_16"
+    app:fab_addButtonSize="normal"
+    fab:fab_addButtonColorNormal="@color/colorPrimary"
+    fab:fab_addButtonColorPressed="@color/colorPrimaryDark"
+
+    fab:fab_labelStyle="@style/menu_labels_style">
+
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_more_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/colorPrimary"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_icon="@drawable/more_app"
+        fab:fab_size="mini"
+        fab:fab_title="@string/more_app" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/colorPrimary"
+
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_icon="@drawable/email"
+        fab:fab_size="mini"
+
+        fab:fab_title="@string/feedback" />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/colorPrimary"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_icon="@drawable/share"
+        fab:fab_size="mini"
+        fab:fab_title="@string/share"
+
+        />
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/colorPrimary"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_icon="@drawable/star"
+        fab:fab_size="mini"
+        fab:fab_title="@string/favorite" />
+
+</com.getbase.floatingactionbutton.FloatingActionsMenu>

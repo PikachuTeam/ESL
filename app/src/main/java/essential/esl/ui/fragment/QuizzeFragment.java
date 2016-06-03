@@ -48,7 +48,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     private final int SEEK_TIME = 5000;
     private LinearLayout btnBack, btnShare;
     private TextView tvTitle;
-    private ViewPager viewPager;
+    public ViewPager viewPager;
     public HelpfulTip helpfulTip;
     public Conversation conversation;
     public MyViewPagerAdapter adapter;
@@ -125,6 +125,9 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
             @Override
             public void onPageSelected(int position) {
                 selectPage(position);
+//                if (adapter.pages.get(position) instanceof DescriptionPage) {
+//                    DescriptionPage descriptionPage = (DescriptionPage) adapter.pages.get(position);
+//                }
             }
 
             @Override
@@ -283,6 +286,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
                                         mHandler2.removeCallbacks(mUpdateDownload);
                                         tvDownload.setVisibility(View.INVISIBLE);
                                         btnPlay.setEnabled(true);
+                                        DataSource.updateDownloaded(conversation.id);
                                         if (isInApp) {
                                             playAudioFromSdCard();
                                         } else btnPlay.setImageResource(R.drawable.play);

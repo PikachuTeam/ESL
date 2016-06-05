@@ -109,6 +109,16 @@ public class LevelPage extends BasePage {
             Glide.with(fragment)
                     .load(list.get(i).avatarImageUrl).centerCrop().crossFade().error(R.drawable.logo)
                     .into(viewHolder.ivAvatar);
+            if (list.get(i).isDownloaded > 0) {
+                viewHolder.ivDownloaded.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.ivDownloaded.setVisibility(View.INVISIBLE);
+            }
+            if (list.get(i).isFree > 0) {
+                viewHolder.ivPro.setVisibility(View.INVISIBLE);
+            } else {
+                viewHolder.ivPro.setVisibility(View.VISIBLE);
+            }
             if (list.get(i).score > 0) {
                 viewHolder.ivStatus.setImageResource(R.drawable.dot);
                 if (list.get(i).score / list.size() == 1)
@@ -146,7 +156,7 @@ public class LevelPage extends BasePage {
             public TextView tvTitle;
             public TextView tvLength;
             public TextView tvStatus;
-            public ImageView ivAvatar;
+            public ImageView ivAvatar, ivDownloaded, ivPro;
             public ImageView ivStatus;
             public CardView item;
 
@@ -158,6 +168,8 @@ public class LevelPage extends BasePage {
                 tvStatus = (TextView) itemView.findViewById(R.id.tv_status);
                 ivAvatar = (ImageView) itemView.findViewById(R.id.avatar);
                 ivStatus = (ImageView) itemView.findViewById(R.id.iv_status);
+                ivDownloaded = (ImageView) itemView.findViewById(R.id.id_iv_downloaded);
+                ivPro = (ImageView) itemView.findViewById(R.id.id_iv_pro);
                 item = (CardView) itemView.findViewById(R.id.item);
 
             }

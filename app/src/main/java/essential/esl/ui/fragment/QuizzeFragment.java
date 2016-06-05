@@ -449,11 +449,11 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
             QuizzesPage quizzesPage = new QuizzesPage(fragment, activity, conversation.id);
             pages.add(quizzesPage);
             if (!conversation.script.equals("")) {
-                DescriptionPage scriptPage = new DescriptionPage(fragment, activity, conversation.script, "Transcription");
+                DescriptionPage scriptPage = new DescriptionPage(fragment, activity, conversation.script, "Transcription", true);
                 pages.add(scriptPage);
             }
             if (!conversation.keyVocabulary.equals("")) {
-                DescriptionPage keyVocabularyPage = new DescriptionPage(fragment, activity, conversation.keyVocabulary, "Key Vocabulary");
+                DescriptionPage keyVocabularyPage = new DescriptionPage(fragment, activity, conversation.keyVocabulary, "Key Vocabulary", false);
                 pages.add(keyVocabularyPage);
             }
         }

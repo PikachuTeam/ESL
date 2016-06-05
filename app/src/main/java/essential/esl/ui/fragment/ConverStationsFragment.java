@@ -60,7 +60,7 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
 
         btnBack.setOnClickListener(this);
-        btnShare.setOnClickListener(this);
+        btnShare.setVisibility(View.INVISIBLE);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         setTitle();

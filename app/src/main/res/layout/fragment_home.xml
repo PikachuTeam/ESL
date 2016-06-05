@@ -16,12 +16,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="26"></LinearLayout>
+            android:layout_weight="23"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="62"
+            android:layout_weight="50"
             android:orientation="vertical"
             android:weightSum="100">
 
@@ -36,13 +36,13 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="7"
+                    android:layout_weight="6"
                     android:background="@drawable/line_select_home"></LinearLayout>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="86"
+                    android:layout_weight="88"
                     android:background="@drawable/button_select_home"
                     android:gravity="center"
                     android:text="@string/basic"
@@ -52,7 +52,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="7"
+                    android:layout_weight="6"
                     android:background="@drawable/line_select_home"></LinearLayout>
 
             </LinearLayout>
@@ -68,13 +68,13 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="7"
+                    android:layout_weight="6"
                     android:background="@drawable/line_select_home"></LinearLayout>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="86"
+                    android:layout_weight="88"
                     android:background="@drawable/button_select_home"
                     android:gravity="center"
                     android:text="@string/general"
@@ -84,7 +84,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="7"
+                    android:layout_weight="6"
                     android:background="@drawable/line_select_home"></LinearLayout>
             </LinearLayout>
 
@@ -99,13 +99,13 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="7"
+                    android:layout_weight="6"
                     android:background="@drawable/line_select_home"></LinearLayout>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="86"
+                    android:layout_weight="88"
                     android:background="@drawable/button_select_home"
                     android:gravity="center"
                     android:text="@string/academy"
@@ -115,10 +115,26 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="7"
+                    android:layout_weight="6"
                     android:background="@drawable/line_select_home"></LinearLayout>
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_link_app"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/common_size_6"
+            android:paddingTop="@dimen/common_size_6">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/american_accent" />
         </LinearLayout>
 
         <LinearLayout

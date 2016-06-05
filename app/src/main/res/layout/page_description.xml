@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/scroll_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbarAlwaysDrawVerticalTrack="true"
@@ -54,9 +55,38 @@
             </LinearLayout>
         </ScrollView>
 
-        <ImageView
-            android:id="@+id/iv"
+        <RelativeLayout
+            android:id="@+id/tv_trick"
+            android:background="@color/background_quizze"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/trick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_size_15"
+                android:layout_marginTop="@dimen/common_size_5"
+                android:gravity="center"
+                android:scaleX="1.2"
+                android:text="    "
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_text_size_21"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/trick"
+                android:background="@drawable/blur" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
     </RelativeLayout>
 </LinearLayout>

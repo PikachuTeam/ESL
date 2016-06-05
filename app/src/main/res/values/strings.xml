@@ -11,5 +11,7 @@
     <string name="share">SHARE</string>
     <string name="feedback">FEEDBACK</string>
     <string name="more_app">MORE APP</string>
+    <string name="subject_mail_feedback">[ESL] Android feedback</string>
+
 
 </resources>

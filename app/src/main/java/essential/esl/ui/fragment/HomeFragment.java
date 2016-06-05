@@ -13,13 +13,17 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import essential.esl.R;
 import essential.esl.app.MyAnimation;
 import essential.esl.app.MyBaseFragment;
+import essential.esl.app.ShareUtil;
 import essential.esl.ui.activity.MainActivity;
+import tatteam.com.app_common.AppCommon;
+import tatteam.com.app_common.ui.activity.BaseActivity;
+import tatteam.com.app_common.util.CommonUtil;
 
 /**
  * Created by admin on 5/18/2016.
  */
 public class HomeFragment extends MyBaseFragment implements View.OnClickListener {
-    private LinearLayout btn1, btn2, btn3;
+    private LinearLayout btn1, btn2, btn3, btn4;
     private CardView btnUpgrade;
     public FloatingActionsMenu actionsMenu;
     protected FloatingActionButton btnShare, btnMoreApp, btnFeedback, btnFavorite;
@@ -39,6 +43,7 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
         btn1 = (LinearLayout) rootView.findViewById(R.id.btn_lv1);
         btn2 = (LinearLayout) rootView.findViewById(R.id.btn_lv2);
         btn3 = (LinearLayout) rootView.findViewById(R.id.btn_lv3);
+        btn4 = (LinearLayout) rootView.findViewById(R.id.btn_link_app);
         btnUpgrade = (CardView) rootView.findViewById(R.id.btn_Upgrade);
         btnFavorite = (FloatingActionButton) rootView.findViewById(R.id.btn_favorite);
         btnFeedback = (FloatingActionButton) rootView.findViewById(R.id.btn_feedback);
@@ -49,6 +54,7 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
         btnUpgrade.setOnClickListener(this);
         btnFavorite.setOnClickListener(this);
         btnShare.setOnClickListener(this);
@@ -89,12 +95,17 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
 
     }
 
+    private void sharingEvent() {
+        String androidLink = "https://play.google.com/store/apps/details?id=" + getBaseActivity().getPackageName();
+        String sharedText = getString(R.string.app_name) + ".\nAndroid: " + androidLink;
+        CommonUtil.sharePlainText(getContext(), sharedText);
+    }
 
     @Override
     public void onClick(View v) {
         MyAnimation.animZoomWhenOnClick(v, HomeFragment.this, 1, 1.1f, 1, 1.1f);
         int id = v.getId();
-        if (id == R.id.btn_Upgrade || id == R.id.btn_favorite || id == R.id.btn_share || id == R.id.btn_feedback || id == R.id.btn_more_app) {
+        if (id == R.id.btn_Upgrade || id == R.id.btn_favorite || id == R.id.btn_share || id == R.id.btn_feedback || id == R.id.btn_more_app || id == R.id.btn_link_app) {
             switch (id) {
                 case R.id.btn_Upgrade:
                     break;
@@ -105,15 +116,19 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
                     activity.animHideLogo();
                     break;
                 case R.id.btn_share:
-
+                    sharingEvent();
                     break;
                 case R.id.btn_feedback:
-
+                    ShareUtil.shareToGMail(getContext(), new String[]{ShareUtil.MAIL_ADDRESS_DEFAULT}, getString(R.string.subject_mail_feedback), "");
                     break;
                 case R.id.btn_more_app:
+                    AppCommon.getInstance().openMoreAppDialog(getContext());
+                    break;
+                case R.id.btn_link_app:
+                    //
                     break;
             }
-            actionsMenu.collapse();
+            if (actionsMenu.isExpanded()) actionsMenu.collapse();
         } else {
             int idCat = 0;
             switch (id) {

@@ -57,9 +57,9 @@
 
         <RelativeLayout
             android:id="@+id/tv_trick"
-            android:background="@color/background_quizze"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background_quizze">
 
             <TextView
                 android:id="@+id/trick"
@@ -82,8 +82,15 @@
                 android:background="@drawable/blur" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:id="@+id/tv_upgrade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/upgrade_to_pro"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/common_text_size_24"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

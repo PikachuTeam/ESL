@@ -125,9 +125,6 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
             @Override
             public void onPageSelected(int position) {
                 selectPage(position);
-//                if (adapter.pages.get(position) instanceof DescriptionPage) {
-//                    DescriptionPage descriptionPage = (DescriptionPage) adapter.pages.get(position);
-//                }
             }
 
             @Override
@@ -235,10 +232,13 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
                     DataSource.setFavorite(conversation.id);
                     iconFavorite.setColorFilter(getResources().getColor(R.color.star1));
                     conversation.isFavorite = DataSource.getFavorite(conversation.id);
+                    makeMessage(viewPager, R.string.added_to_favorite);
                 } else {
                     DataSource.removeFavorite(conversation.id);
                     iconFavorite.setColorFilter(getResources().getColor(R.color.star2));
                     conversation.isFavorite = DataSource.getFavorite(conversation.id);
+                    makeMessage(viewPager, R.string.removed_from_favorite);
+
 
                 }
                 break;
@@ -326,6 +326,9 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     }
 
     public void playAudioFromSdCard() {
+        if (conversation.isDownloaded != 1) {
+            DataSource.updateDownloaded(conversation.isDownloaded);
+        }
         btnPlay.setImageResource(R.drawable.pause);
         mediaPlayer.reset();
         String mediaPath = "/sdcard/Essential/ESLAudios/" + conversation.id + ".mp3";
@@ -374,10 +377,12 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
 
     }
 
+
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         if (isSetUpAudio)
             mHandler.removeCallbacks(mUpdateTimeTask);
+
     }
 
     @Override
@@ -441,6 +446,13 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         alertDialog.show();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacks(mUpdateTimeTask);
+        mHandler2.removeCallbacks(mUpdateDownload);
+    }
+
     public class MyViewPagerAdapter extends PagerAdapter {
         private ArrayList<BasePage> pages;
 
@@ -476,8 +488,6 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
-            mHandler.removeCallbacks(mUpdateTimeTask);
-            mHandler2.removeCallbacks(mUpdateDownload);
             pages.get(position).destroy();
         }
 

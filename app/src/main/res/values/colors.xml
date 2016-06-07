@@ -23,5 +23,8 @@
     <color name="primary_text">#0095ba</color>
     <color name="background_quizze">#363634</color>
     <color name="star1">#ffff00</color>
-    <color name="star2">#ececec</color>F
+    <color name="star2">#ececec</color>
+    <color name="green">#0ec25a</color>
+    <color name="red">#cb2026</color>
+    <color name="grey1">#f5f5f5</color>
 </resources>

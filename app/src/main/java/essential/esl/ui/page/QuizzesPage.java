@@ -17,6 +17,7 @@ import essential.esl.app.BasePage;
 import essential.esl.app.MyAnimation;
 import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
+import essential.esl.app.MyDialog;
 import essential.esl.app.MyItemLayout;
 import essential.esl.data.DataSource;
 import essential.esl.data.Quizze;
@@ -159,7 +160,7 @@ public class QuizzesPage extends BasePage {
                             DataSource.updateScore(idConversation, getNumberAnswerCorrect());
                             MyAnimation.animZoomWhenOnClick(viewHolder.tvScore, this, 1, 1.5f, 1, 1.5f);
                         } else {
-                            fragment.makeMessage(rvListQuizze, R.string.unlock);
+                            MyDialog.getInstance(fragment.getContext()).show();
                         }
 
                     }

@@ -1,6 +1,8 @@
 package essential.esl.ui.fragment;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import essential.esl.R;
 import essential.esl.app.MyAnimation;
 import essential.esl.app.MyBaseFragment;
+import essential.esl.app.MyDialog;
 import essential.esl.app.ShareUtil;
 import essential.esl.ui.activity.MainActivity;
 import tatteam.com.app_common.AppCommon;
@@ -108,6 +111,7 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
         if (id == R.id.btn_Upgrade || id == R.id.btn_favorite || id == R.id.btn_share || id == R.id.btn_feedback || id == R.id.btn_more_app || id == R.id.btn_link_app) {
             switch (id) {
                 case R.id.btn_Upgrade:
+                    MyDialog.getInstance(getContext()).show();
                     break;
                 case R.id.btn_favorite:
                     FavoriteFragment favoriteFragment = new FavoriteFragment();
@@ -126,6 +130,13 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
                     break;
                 case R.id.btn_link_app:
                     //
+                    String packageNameAccent = "com.tatteam.android.englishaccenttraining";
+                    if (CommonUtil.isPackageInstalled(packageNameAccent, getContext())) {
+                        Intent intent = getBaseActivity().getPackageManager().getLaunchIntentForPackage(packageNameAccent);
+                        startActivity(intent);
+                    } else {
+                        CommonUtil.openApplicationOnGooglePlay(getContext(), packageNameAccent);
+                    }
                     break;
             }
             if (actionsMenu.isExpanded()) actionsMenu.collapse();

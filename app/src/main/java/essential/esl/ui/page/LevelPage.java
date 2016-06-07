@@ -1,8 +1,6 @@
 package essential.esl.ui.page;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import essential.esl.R;
 import essential.esl.app.BasePage;
@@ -107,12 +104,17 @@ public class LevelPage extends BasePage {
             viewHolder.tvStatus.setText(list.get(i).score + "/" + list.get(i).totalQuiz);
             viewHolder.tvLength.setText(list.get(i).length);
             Glide.with(fragment)
-                    .load(list.get(i).avatarImageUrl).centerCrop().crossFade().error(R.drawable.logo)
+                    .load(list.get(i).avatarImageUrl).centerCrop().crossFade().error(R.drawable.err)
                     .into(viewHolder.ivAvatar);
-            if (list.get(i).isDownloaded > 0) {
-                viewHolder.ivDownloaded.setVisibility(View.VISIBLE);
+            if (list.get(i).isFavorite > 0) {
+                viewHolder.ivFavorite.setVisibility(View.VISIBLE);
             } else {
-                viewHolder.ivDownloaded.setVisibility(View.INVISIBLE);
+                viewHolder.ivFavorite.setVisibility(View.INVISIBLE);
+            }
+            if (list.get(i).isDownloaded > 0) {
+                viewHolder.cvDownloaded.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.cvDownloaded.setVisibility(View.INVISIBLE);
             }
             if (list.get(i).isFree > 0) {
                 viewHolder.ivPro.setVisibility(View.INVISIBLE);
@@ -156,9 +158,10 @@ public class LevelPage extends BasePage {
             public TextView tvTitle;
             public TextView tvLength;
             public TextView tvStatus;
-            public ImageView ivAvatar, ivDownloaded, ivPro;
+            public ImageView ivAvatar, ivPro;
             public ImageView ivStatus;
-            public CardView item;
+            public CardView item, cvDownloaded;
+            public RelativeLayout ivFavorite;
 
 
             public ViewHolder(View itemView) {
@@ -168,9 +171,10 @@ public class LevelPage extends BasePage {
                 tvStatus = (TextView) itemView.findViewById(R.id.tv_status);
                 ivAvatar = (ImageView) itemView.findViewById(R.id.avatar);
                 ivStatus = (ImageView) itemView.findViewById(R.id.iv_status);
-                ivDownloaded = (ImageView) itemView.findViewById(R.id.id_iv_downloaded);
+                ivFavorite = (RelativeLayout) itemView.findViewById(R.id.item_favorite);
                 ivPro = (ImageView) itemView.findViewById(R.id.id_iv_pro);
                 item = (CardView) itemView.findViewById(R.id.item);
+                cvDownloaded = (CardView) itemView.findViewById(R.id.id_iv_downloaded);
 
             }
 

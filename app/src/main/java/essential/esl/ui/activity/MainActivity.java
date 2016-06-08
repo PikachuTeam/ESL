@@ -31,7 +31,6 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     private static AppConstant.AdsType ADS_TYPE_BIG;
     private final int PERMISSION_REQUEST_CODE = 1;
     public static final String ESL = "englishsecondlanguage";
-    public static final String CHECK_PERMISSION = "checkpermission";
     public static final String IS_PRO_VERSION = "is_pro_version";
     private ObjectAnimator logoScaleX, logoScaleY, logoTransTop, logoShowX, logoShowX1, logoHideX, logoHideX1;
     private ImageView logo;
@@ -70,14 +69,10 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    editor.putBoolean(CHECK_PERMISSION, true);
-                    editor.commit();
                     createFolderAudioIfNeed();
 
 
                 } else {
-                    editor.putBoolean(CHECK_PERMISSION, false);
-                    editor.commit();
                     onCloseActivity();
                 }
                 break;
@@ -109,7 +104,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         AppCommon.getInstance().increaseLaunchTime();
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), "eslquizzes.db");
 
-        if(!isProVersion()) {
+        if (!isProVersion()) {
             if (BuildConfig.DEBUG) {
                 MainActivity.ADS_TYPE_SMALL = AppConstant.AdsType.SMALL_BANNER_TEST;
                 MainActivity.ADS_TYPE_BIG = AppConstant.AdsType.BIG_BANNER_TEST;
@@ -126,9 +121,10 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     protected void onFinishInitAppCommon() {
         enableOnBackPressed();
         animSplashLogo();
+//        setProVersion(true);
         replaceParentFragment();
-//        boolean checkPermission = sharedPref.getBoolean(CHECK_PERMISSION, false);
         requestPermission();
+
 
     }
 

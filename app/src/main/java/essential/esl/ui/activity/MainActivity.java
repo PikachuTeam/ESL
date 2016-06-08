@@ -139,7 +139,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     protected void onFinishInitAppCommon() {
         enableOnBackPressed();
         animSplashLogo();
-        setProVersion(true);
+//        setProVersion(true);
         replaceParentFragment();
         requestPermission();
 

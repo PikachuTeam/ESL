@@ -165,6 +165,7 @@ public class QuizzesPage extends BasePage {
                                 viewHolder.tvScore.setText(getNumberAnswerCorrect() + "/" + list.size());
                                 DataSource.updateScore(conversation.id, getNumberAnswerCorrect());
                                 MyAnimation.animZoomWhenOnClick(viewHolder.tvScore, this, 1, 1.5f, 1, 1.5f);
+                                activity.showBigAdsIfNeeded();
                             } else {
                                 (activity).showUpgradeProVersionDialog();
                             }

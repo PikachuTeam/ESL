@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_4"
                     android:layout_marginRight="@dimen/common_size_4"
-                    android:paddingBottom="@dimen/common_size_5"
+                    android:paddingBottom="@dimen/common_size_10"
                     android:paddingLeft="@dimen/common_size_13"
                     android:paddingRight="@dimen/common_size_13"
                     android:textColor="@color/white"

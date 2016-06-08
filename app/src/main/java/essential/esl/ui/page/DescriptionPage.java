@@ -69,8 +69,13 @@ public class DescriptionPage extends BasePage {
         }
 
         if(!activity.isProVersion()) {
-            adsHandler = new AdsSmallBannerHandler(activity, (ViewGroup) getContent().findViewById(R.id.ads_container), MainActivity.ADS_TYPE_SMALL, AdSize.MEDIUM_RECTANGLE);
-            adsHandler.setup();
+            getContent().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adsHandler = new AdsSmallBannerHandler(activity, (ViewGroup) getContent().findViewById(R.id.ads_container), MainActivity.ADS_TYPE_SMALL, AdSize.MEDIUM_RECTANGLE);
+                    adsHandler.setup();
+                }
+            },500);
         }
     }
 

@@ -142,6 +142,7 @@ public class LevelPage extends BasePage {
                     bundle.putSerializable("converstation", list.get(i));
                     quizzeFragment.setArguments(bundle);
                     fragment.replaceFragment(quizzeFragment, quizzeFragment.getTag());
+                    activity.showBigAdsIfNeeded();
                 }
             });
         }

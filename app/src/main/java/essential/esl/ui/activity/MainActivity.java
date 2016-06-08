@@ -27,6 +27,7 @@ import essential.esl.app.MyDialog;
 import essential.esl.ui.fragment.HomeFragment;
 import essential.esl.ui.fragment.SplashFragment;
 import tatteam.com.app_common.AppCommon;
+import tatteam.com.app_common.ads.AdsBigBannerHandler;
 import tatteam.com.app_common.sqlite.DatabaseLoader;
 import tatteam.com.app_common.util.AppConstant;
 import tatteam.com.app_common.util.CloseAppHandler;
@@ -38,6 +39,9 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
 
     public static AppConstant.AdsType ADS_TYPE_SMALL;
     public static AppConstant.AdsType ADS_TYPE_BIG;
+    public final static int BIG_ADS_SHOWING_INTERVAL = 8;
+    public static int adsCounter;
+
     private final int PERMISSION_REQUEST_CODE = 1;
     public static final String ESL = "englishsecondlanguage";
     public static final String IS_PRO_VERSION = "is_pro_version";
@@ -50,6 +54,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     private BillingProcessor billingProcessor;
+    private AdsBigBannerHandler adsBigBannerHandler;
 
     @Override
     protected int getParentFragmentContainerId() {
@@ -138,7 +143,8 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         replaceParentFragment();
         requestPermission();
 
-
+        adsBigBannerHandler = new AdsBigBannerHandler(this, MainActivity.ADS_TYPE_BIG);
+        adsBigBannerHandler.setup();
     }
 
     public void createFolderAudioIfNeed() {
@@ -267,6 +273,19 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         if (billingProcessor != null) {
             billingProcessor.release();
         }
+        if (adsBigBannerHandler != null) {
+            adsBigBannerHandler.destroy();
+        }
+
         super.onDestroy();
+    }
+
+    public void showBigAdsIfNeeded() {
+        if (!isProVersion()) {
+            adsCounter++;
+            if (adsCounter % BIG_ADS_SHOWING_INTERVAL == 0) {
+                adsBigBannerHandler.show();
+            }
+        }
     }
 }

@@ -20,13 +20,14 @@ import essential.esl.data.Conversation;
 public class HelpfulTip implements View.OnClickListener {
     private ImageView btnTips, ivAvatar;
     private TextView tvLevel, tvTopic, tvType, tvSpeakers, tvTips;
-    private RelativeLayout background, btnHide;
+    private RelativeLayout background;
     private MyBaseFragment fragment;
     private String SPACE = "                           ";
     private Conversation conversation;
     private String level;
     private View parentView;
     private RelativeLayout scrollView;
+    private CardView contentTips;
 
     public HelpfulTip(MyBaseFragment fragment, View parentView, Conversation conversation) {
         this.fragment = fragment;
@@ -53,12 +54,11 @@ public class HelpfulTip implements View.OnClickListener {
         ivAvatar = (ImageView) parentView.findViewById(R.id.imageAvatar);
         btnTips = (ImageView) parentView.findViewById(R.id.btn_Tips);
         background = (RelativeLayout) parentView.findViewById(R.id.background_tips);
-        btnHide = (RelativeLayout) parentView.findViewById(R.id.btn_Hide);
         scrollView = (RelativeLayout) parentView.findViewById(R.id.tips_parent);
-
+        contentTips = (CardView) parentView.findViewById(R.id.content_tips);
         btnTips.setOnClickListener(this);
-        btnHide.setOnClickListener(this);
-
+        contentTips.setOnClickListener(this);
+        background.setOnClickListener(this);
         tvLevel.setText(getLevel());
         tvType.setText(conversation.type);
         if (conversation.helpFulTip.equals("")) {
@@ -82,7 +82,7 @@ public class HelpfulTip implements View.OnClickListener {
                 MyAnimation.animZoomWhenOnClick(v, this, 1, 1.1f, 1, 1.1f);
                 background.setVisibility(View.VISIBLE);
                 break;
-            case R.id.btn_Hide:
+            case R.id.background_tips:
                 hideTips();
                 break;
         }

@@ -105,9 +105,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         AppCommon.getInstance().increaseLaunchTime();
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), "eslquizzes.db");
-//        setVersionCode(sharedPref.getBoolean(CHECK_VERSION, false));
-        setVersionCode(false);
-
+        setVersionCode(sharedPref.getBoolean(CHECK_VERSION, false));
     }
 
     @Override
@@ -115,11 +113,8 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         enableOnBackPressed();
         animSplashLogo();
         replaceParentFragment();
-        boolean checkPermission = sharedPref.getBoolean(CHECK_PERMISSION, false);
-        if (checkPermission == false) {
-            requestPermission();
-        } else {
-        }
+//        boolean checkPermission = sharedPref.getBoolean(CHECK_PERMISSION, false);
+        requestPermission();
 
     }
 

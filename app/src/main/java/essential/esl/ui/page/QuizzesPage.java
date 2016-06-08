@@ -1,6 +1,5 @@
 package essential.esl.ui.page;
 
-import android.preference.PreferenceActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,6 +17,7 @@ import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
 import essential.esl.app.MyDialog;
 import essential.esl.app.MyItemLayout;
+import essential.esl.data.Conversation;
 import essential.esl.data.DataSource;
 import essential.esl.data.Quizze;
 import essential.esl.ui.activity.MainActivity;
@@ -32,17 +31,17 @@ public class QuizzesPage extends BasePage {
     private LinearLayoutManager lmPhrase;
     private boolean checkMode = false;
     private MyRecycleAdapter adapter2;
-    private int idConversation;
+    private Conversation conversation;
 
     @Override
     protected int getContentId() {
         return R.layout.page_quizzes;
     }
 
-    public QuizzesPage(MyBaseFragment fragment, MyBaseActivity activity, int idConversation) {
+    public QuizzesPage(MyBaseFragment fragment, MyBaseActivity activity, Conversation conversation) {
         super(fragment, activity);
-        this.idConversation = idConversation;
-        listQuizze = DataSource.getQuizzes(idConversation);
+        this.conversation = conversation;
+        listQuizze = DataSource.getQuizzes(conversation.id);
         setupRecyclerView(listQuizze);
     }
 
@@ -143,7 +142,7 @@ public class QuizzesPage extends BasePage {
                     @Override
                     public void onClick(View v) {
                         MyAnimation.animZoomWhenOnClick(v, this, 1, 1.05f, 1, 1.05f);
-                        list = DataSource.getQuizzes(idConversation);
+                        list = DataSource.getQuizzes(conversation.id);
                         checkMode = false;
                         viewHolder.tvScore.setText("0/" + list.size());
                         notifyDataSetChanged();
@@ -157,10 +156,18 @@ public class QuizzesPage extends BasePage {
                             checkMode = true;
                             notifyDataSetChanged();
                             viewHolder.tvScore.setText(getNumberAnswerCorrect() + "/" + list.size());
-                            DataSource.updateScore(idConversation, getNumberAnswerCorrect());
+                            DataSource.updateScore(conversation.id, getNumberAnswerCorrect());
                             MyAnimation.animZoomWhenOnClick(viewHolder.tvScore, this, 1, 1.5f, 1, 1.5f);
                         } else {
-                            MyDialog.getInstance(fragment.getContext()).show();
+                            if (conversation.isFree > 0) {
+                                checkMode = true;
+                                notifyDataSetChanged();
+                                viewHolder.tvScore.setText(getNumberAnswerCorrect() + "/" + list.size());
+                                DataSource.updateScore(conversation.id, getNumberAnswerCorrect());
+                                MyAnimation.animZoomWhenOnClick(viewHolder.tvScore, this, 1, 1.5f, 1, 1.5f);
+                            } else {
+                                MyDialog.getInstance(fragment.getContext()).show();
+                            }
                         }
 
                     }

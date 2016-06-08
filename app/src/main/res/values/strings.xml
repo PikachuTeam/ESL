@@ -10,15 +10,15 @@
     <string name="favorite">Favorite</string>
     <string name="share">Share</string>
     <string name="feedback">Feedback</string>
-    <string name="added_to_favorite">Added to Favorite !</string>
-    <string name="removed_from_favorite">Removed from Favorite !</string>
+    <string name="added_to_favorite">Added to Favorite </string>
+    <string name="removed_from_favorite">Removed from Favorite </string>
     <string name="more_app">More Apps</string>
     <string name="upgrade">UPGRADE</string>
     <string name="subject_mail_feedback">[ESL] Android feedback</string>
-    <string name="downloaded">downloaded</string>
+    <string name="downloaded">Downloaded</string>
     <string name="upgrade_to_pro">UPGRADE TO PRO VERSION</string>
     <string name="unlock_all_lessons">Unlock all lessons</string>
-    <string name="remove_ads">Remove ADS</string>
+    <string name="remove_ads">Remove Ads</string>
 
 
 </resources>

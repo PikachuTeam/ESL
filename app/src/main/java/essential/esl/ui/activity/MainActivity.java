@@ -36,8 +36,8 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     private static final String DEV_KEY = "";
     private static final String PURCHASE_PRO_VERSION_ID = "upgrade_pro_version";
 
-    private static AppConstant.AdsType ADS_TYPE_SMALL;
-    private static AppConstant.AdsType ADS_TYPE_BIG;
+    public static AppConstant.AdsType ADS_TYPE_SMALL;
+    public static AppConstant.AdsType ADS_TYPE_BIG;
     private final int PERMISSION_REQUEST_CODE = 1;
     public static final String ESL = "englishsecondlanguage";
     public static final String CHECK_PERMISSION = "checkpermission";

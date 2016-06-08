@@ -3,10 +3,13 @@ package essential.esl.ui.page;
 import android.text.Html;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdSize;
 
 import essential.esl.R;
 import essential.esl.app.BasePage;
@@ -15,6 +18,7 @@ import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
 import essential.esl.app.MyDialog;
 import essential.esl.ui.activity.MainActivity;
+import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 
 /**
  * Created by admin on 5/26/2016.
@@ -24,6 +28,8 @@ public class DescriptionPage extends BasePage {
     private boolean isTranscription = false;
     private ImageView imageViewBlur;
     private RelativeLayout tvTrick;
+
+    private AdsSmallBannerHandler adsHandler;
 
     public DescriptionPage(final MyBaseFragment fragment, final MainActivity activity, String stringContent, String header, boolean isTranscription) {
         super(fragment, activity);
@@ -61,11 +67,24 @@ public class DescriptionPage extends BasePage {
             imageViewBlur.setVisibility(View.GONE);
             tvTrick.setVisibility(View.GONE);
         }
+
+        if(!activity.isProVersion()) {
+            adsHandler = new AdsSmallBannerHandler(activity, (ViewGroup) getContent().findViewById(R.id.ads_container), MainActivity.ADS_TYPE_SMALL, AdSize.MEDIUM_RECTANGLE);
+            adsHandler.setup();
+        }
     }
 
 
     @Override
     protected int getContentId() {
         return R.layout.page_description;
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        if(adsHandler!=null) {
+            adsHandler.destroy();
+        }
     }
 }

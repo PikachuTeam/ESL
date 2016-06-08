@@ -21,7 +21,7 @@
 
             <LinearLayout
                 android:id="@+id/lock_area"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -45,13 +45,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/common_size_4"
                     android:layout_marginRight="@dimen/common_size_4"
-                    android:paddingBottom="@dimen/common_size_17"
+                    android:paddingBottom="@dimen/common_size_5"
                     android:paddingLeft="@dimen/common_size_13"
                     android:paddingRight="@dimen/common_size_13"
                     android:textColor="@color/white"
                     android:textIsSelectable="true"
                     android:textSize="@dimen/common_text_size_18" />
 
+                <FrameLayout
+                    android:id="@+id/ads_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/common_size_10" />
             </LinearLayout>
         </ScrollView>
 

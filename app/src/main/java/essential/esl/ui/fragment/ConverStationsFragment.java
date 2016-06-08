@@ -46,7 +46,7 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
     protected void onCreateContentView(View rootView, Bundle savedInstanceState) {
 
         if (adapter == null) {
-            adapter = new MyViewPagerAdapter((MyBaseActivity) getActivity(), this);
+            adapter = new MyViewPagerAdapter((MainActivity) getActivity(), this);
         } else
             adapter.updateData();
         init(rootView);
@@ -98,10 +98,10 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
 
     public class MyViewPagerAdapter extends PagerAdapter {
         private MyBaseFragment fragment;
-        private MyBaseActivity activity;
+        private MainActivity activity;
         private ArrayList<LevelPage> pages;
 
-        public MyViewPagerAdapter(MyBaseActivity activity, MyBaseFragment fragment) {
+        public MyViewPagerAdapter(MainActivity activity, MyBaseFragment fragment) {
             this.activity = activity;
             this.fragment = fragment;
             if (pages == null) {

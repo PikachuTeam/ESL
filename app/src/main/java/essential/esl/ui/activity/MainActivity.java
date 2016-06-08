@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 
+import essential.esl.BuildConfig;
 import essential.esl.R;
 import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
@@ -22,14 +23,16 @@ import essential.esl.ui.fragment.HomeFragment;
 import essential.esl.ui.fragment.SplashFragment;
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.sqlite.DatabaseLoader;
+import tatteam.com.app_common.util.AppConstant;
 import tatteam.com.app_common.util.CloseAppHandler;
 
 public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCloseAppListener {
+    private static AppConstant.AdsType ADS_TYPE_SMALL;
+    private static AppConstant.AdsType ADS_TYPE_BIG;
     private final int PERMISSION_REQUEST_CODE = 1;
     public static final String ESL = "englishsecondlanguage";
     public static final String CHECK_PERMISSION = "checkpermission";
-    public static final String CHECK_VERSION = "checkversion";
-    private static boolean VERSION_CODE = false;
+    public static final String IS_PRO_VERSION = "checkversion";
     private ObjectAnimator logoScaleX, logoScaleY, logoTransTop, logoShowX, logoShowX1, logoHideX, logoHideX1;
     private ImageView logo;
     private CloseAppHandler closeAppHandler;
@@ -53,13 +56,13 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
     }
 
-    public static boolean isProVersion() {
-        return VERSION_CODE;
+    public boolean isProVersion() {
+        return sharedPref.getBoolean(IS_PRO_VERSION, false);
     }
 
-    public static void setVersionCode(boolean version) {
-        VERSION_CODE = version;
-
+    public void setProVersion(boolean isProVersion) {
+        editor.putBoolean(IS_PRO_VERSION, isProVersion);
+        editor.commit();
     }
 
     @Override
@@ -105,8 +108,17 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         AppCommon.getInstance().initIfNeeded(getApplicationContext());
         AppCommon.getInstance().increaseLaunchTime();
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), "eslquizzes.db");
-//        setVersionCode(sharedPref.getBoolean(CHECK_VERSION, false));
-        setVersionCode(false);
+
+        if(!isProVersion()) {
+            if (BuildConfig.DEBUG) {
+                MainActivity.ADS_TYPE_SMALL = AppConstant.AdsType.SMALL_BANNER_TEST;
+                MainActivity.ADS_TYPE_BIG = AppConstant.AdsType.BIG_BANNER_TEST;
+            } else {
+                MainActivity.ADS_TYPE_SMALL = AppConstant.AdsType.SMALL_BANNER_LANGUAGE_LEARNING;
+                MainActivity.ADS_TYPE_BIG = AppConstant.AdsType.BIG_BANNER_LANGUAGE_LEARNING;
+            }
+            AppCommon.getInstance().syncAdsIfNeeded(MainActivity.ADS_TYPE_SMALL, MainActivity.ADS_TYPE_BIG);
+        }
 
     }
 
@@ -186,8 +198,6 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
             if (homeFragment.actionsMenu.isExpanded()) homeFragment.actionsMenu.collapse();
             else if (!getStatusLoading()) closeAppHandler.setKeyBackPress(this);
         }
-
-
     }
 
     @Override

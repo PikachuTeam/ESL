@@ -26,6 +26,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.getbase:floatingactionbutton:1.10.0'
-
+    compile 'com.anjlab.android.iab.v3:library:1.0.+'
     compile project(':app_common')
 }

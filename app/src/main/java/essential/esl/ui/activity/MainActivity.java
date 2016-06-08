@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.PowerManager;
@@ -13,12 +14,16 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
+
 import java.io.File;
 
 import essential.esl.BuildConfig;
 import essential.esl.R;
 import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
+import essential.esl.app.MyDialog;
 import essential.esl.ui.fragment.HomeFragment;
 import essential.esl.ui.fragment.SplashFragment;
 import tatteam.com.app_common.AppCommon;
@@ -26,7 +31,11 @@ import tatteam.com.app_common.sqlite.DatabaseLoader;
 import tatteam.com.app_common.util.AppConstant;
 import tatteam.com.app_common.util.CloseAppHandler;
 
-public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCloseAppListener {
+public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCloseAppListener, BillingProcessor.IBillingHandler {
+
+    private static final String DEV_KEY = "";
+    private static final String PURCHASE_PRO_VERSION_ID = "upgrade_pro_version";
+
     private static AppConstant.AdsType ADS_TYPE_SMALL;
     private static AppConstant.AdsType ADS_TYPE_BIG;
     private final int PERMISSION_REQUEST_CODE = 1;
@@ -41,6 +50,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
+    private BillingProcessor billingProcessor;
 
     @Override
     protected int getParentFragmentContainerId() {
@@ -100,6 +110,9 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
                 "MyWakelockTag");
         wakeLock.acquire();
 
+        if (!isProVersion() && BillingProcessor.isIabServiceAvailable(this)) {
+            billingProcessor = new BillingProcessor(this, DEV_KEY, this);
+        }
     }
 
 
@@ -109,7 +122,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         AppCommon.getInstance().increaseLaunchTime();
         DatabaseLoader.getInstance().createIfNeeded(getApplicationContext(), "eslquizzes.db");
 
-        if(!isProVersion()) {
+        if (!isProVersion()) {
             if (BuildConfig.DEBUG) {
                 MainActivity.ADS_TYPE_SMALL = AppConstant.AdsType.SMALL_BANNER_TEST;
                 MainActivity.ADS_TYPE_BIG = AppConstant.AdsType.BIG_BANNER_TEST;
@@ -129,7 +142,6 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         replaceParentFragment();
 //        boolean checkPermission = sharedPref.getBoolean(CHECK_PERMISSION, false);
         requestPermission();
-
     }
 
     public void createFolderAudioIfNeed() {
@@ -210,5 +222,54 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     @Override
     public void onReallyWantToCloseApp() {
         finish();
+    }
+
+    public void showUpgradeProVersionDialog() {
+        MyDialog.getInstance(this).show();
+    }
+
+    public void requestUpgradeToProVersion() {
+        if (billingProcessor != null && billingProcessor.isInitialized()) {
+            if (!billingProcessor.isPurchased(PURCHASE_PRO_VERSION_ID)) {
+                billingProcessor.purchase(this, PURCHASE_PRO_VERSION_ID);
+            }
+        }
+    }
+
+    @Override
+    public void onProductPurchased(String productId, TransactionDetails details) {
+        if (PURCHASE_PRO_VERSION_ID.equals(productId)) {
+            setProVersion(true);
+        }
+    }
+
+    @Override
+    public void onPurchaseHistoryRestored() {
+
+    }
+
+    @Override
+    public void onBillingError(int errorCode, Throwable error) {
+
+    }
+
+    @Override
+    public void onBillingInitialized() {
+        setProVersion(billingProcessor.isPurchased(PURCHASE_PRO_VERSION_ID));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (billingProcessor != null && !billingProcessor.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (billingProcessor != null) {
+            billingProcessor.release();
+        }
+        super.onDestroy();
     }
 }

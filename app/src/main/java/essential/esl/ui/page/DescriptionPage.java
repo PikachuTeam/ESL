@@ -25,7 +25,7 @@ public class DescriptionPage extends BasePage {
     private ImageView imageViewBlur;
     private RelativeLayout tvTrick;
 
-    public DescriptionPage(final MyBaseFragment fragment, MainActivity activity, String stringContent, String header, boolean isTranscription) {
+    public DescriptionPage(final MyBaseFragment fragment, final MainActivity activity, String stringContent, String header, boolean isTranscription) {
         super(fragment, activity);
         tvDescription = (TextView) getContent().findViewById(R.id.tv_description);
         tvHeader = (TextView) getContent().findViewById(R.id.tv_header);
@@ -46,7 +46,7 @@ public class DescriptionPage extends BasePage {
                 tvUpgrade.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MyDialog.getInstance(fragment.getContext()).show();
+                        (activity).showUpgradeProVersionDialog();
                     }
                 });
 

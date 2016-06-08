@@ -1,12 +1,12 @@
 package essential.esl.app;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
 import essential.esl.R;
+import essential.esl.ui.activity.MainActivity;
 
 /**
  * Created by admin on 6/8/2016.
@@ -14,17 +14,19 @@ import essential.esl.R;
 public class MyDialog extends Dialog implements View.OnClickListener {
     private TextView btnNo, btnYes;
     private static MyDialog instance;
+    private MainActivity activity;
 
-    private MyDialog(Context context) {
-        super(context);
+    private MyDialog(MainActivity activity) {
+        super(activity);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.activity = activity;
         setContentView(R.layout.my_dialog);
         init();
     }
 
-    public static MyDialog getInstance(Context context) {
+    public static MyDialog getInstance(MainActivity activity) {
         if (instance == null) {
-            instance = new MyDialog(context);
+            instance = new MyDialog(activity);
         }
         return instance;
     }
@@ -37,8 +39,8 @@ public class MyDialog extends Dialog implements View.OnClickListener {
 
     }
 
-    private void doSomething() {
-
+    private void requestUpgradeToProVersion() {
+        activity.requestUpgradeToProVersion();
     }
 
     @Override
@@ -50,7 +52,7 @@ public class MyDialog extends Dialog implements View.OnClickListener {
                 dismiss();
                 break;
             case R.id.btn_yes:
-                doSomething();
+                requestUpgradeToProVersion();
                 break;
         }
     }

@@ -111,7 +111,7 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
         if (id == R.id.btn_Upgrade || id == R.id.btn_favorite || id == R.id.btn_share || id == R.id.btn_feedback || id == R.id.btn_more_app || id == R.id.btn_link_app) {
             switch (id) {
                 case R.id.btn_Upgrade:
-                    MyDialog.getInstance(getContext()).show();
+                    ((MainActivity)getActivity()).showUpgradeProVersionDialog();
                     break;
                 case R.id.btn_favorite:
                     FavoriteFragment favoriteFragment = new FavoriteFragment();

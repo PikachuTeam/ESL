@@ -32,7 +32,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     private final int PERMISSION_REQUEST_CODE = 1;
     public static final String ESL = "englishsecondlanguage";
     public static final String CHECK_PERMISSION = "checkpermission";
-    public static final String IS_PRO_VERSION = "checkversion";
+    public static final String IS_PRO_VERSION = "is_pro_version";
     private ObjectAnimator logoScaleX, logoScaleY, logoTransTop, logoShowX, logoShowX1, logoHideX, logoHideX1;
     private ImageView logo;
     private CloseAppHandler closeAppHandler;

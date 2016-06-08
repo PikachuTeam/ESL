@@ -45,8 +45,12 @@ public class DescriptionPage extends BasePage {
         tvDescription.setText(Html.fromHtml(stringContent.trim()));
         this.isTranscription = isTranscription;
         if (activity.isProVersion() == false) {
-            if (conversation.isFree == 0) {
-                if (isTranscription == true) {
+
+            if (isTranscription == true) {
+                if (conversation.isFree > 0) {
+                    imageViewBlur.setVisibility(View.GONE);
+                    tvTrick.setVisibility(View.GONE);
+                } else {
                     tvTrick.setVisibility(View.VISIBLE);
                     imageViewBlur.setVisibility(View.VISIBLE);
                     tvHeaderFake.setText(header);
@@ -58,12 +62,11 @@ public class DescriptionPage extends BasePage {
                             (activity).showUpgradeProVersionDialog();
                         }
                     });
-
-                } else {
-                    imageViewBlur.setVisibility(View.GONE);
-                    tvTrick.setVisibility(View.GONE);
-                    tvUpgrade.setVisibility(View.GONE);
                 }
+            } else {
+                imageViewBlur.setVisibility(View.GONE);
+                tvTrick.setVisibility(View.GONE);
+                tvUpgrade.setVisibility(View.GONE);
             }
         } else {
             imageViewBlur.setVisibility(View.GONE);

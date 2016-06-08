@@ -201,12 +201,11 @@
     <include layout="@layout/fab"></include>
 
     <ImageView
-        android:paddingTop="@dimen/common_size_30"
-        android:alpha="0.9"
         android:id="@+id/pro_100"
         android:layout_width="@dimen/common_size_150"
         android:layout_height="@dimen/common_size_150"
         android:layout_alignParentBottom="true"
-        android:scaleType="fitStart"
+        android:alpha="0.9"
+        android:scaleType="fitEnd"
         android:src="@drawable/pro_100" />
 </RelativeLayout>

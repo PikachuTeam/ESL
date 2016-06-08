@@ -17,6 +17,7 @@ import essential.esl.app.CustomScrollView;
 import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
 import essential.esl.app.MyDialog;
+import essential.esl.data.Conversation;
 import essential.esl.ui.activity.MainActivity;
 import tatteam.com.app_common.ads.AdsSmallBannerHandler;
 
@@ -28,10 +29,10 @@ public class DescriptionPage extends BasePage {
     private boolean isTranscription = false;
     private ImageView imageViewBlur;
     private RelativeLayout tvTrick;
-
+    private Conversation conversation;
     private AdsSmallBannerHandler adsHandler;
 
-    public DescriptionPage(final MyBaseFragment fragment, final MainActivity activity, String stringContent, String header, boolean isTranscription) {
+    public DescriptionPage(final MyBaseFragment fragment, final MainActivity activity, Conversation conversation, String stringContent, String header, boolean isTranscription) {
         super(fragment, activity);
         tvDescription = (TextView) getContent().findViewById(R.id.tv_description);
         tvHeader = (TextView) getContent().findViewById(R.id.tv_header);
@@ -40,42 +41,38 @@ public class DescriptionPage extends BasePage {
         imageViewBlur = (ImageView) getContent().findViewById(R.id.iv);
         tvUpgrade = (TextView) getContent().findViewById(R.id.tv_upgrade);
         tvHeader.setText(header);
+        this.conversation = conversation;
         tvDescription.setText(Html.fromHtml(stringContent.trim()));
         this.isTranscription = isTranscription;
         if (activity.isProVersion() == false) {
-            if (isTranscription == true) {
-                tvTrick.setVisibility(View.VISIBLE);
-                imageViewBlur.setVisibility(View.VISIBLE);
-                tvHeaderFake.setText(header);
-                tvDescription.setVisibility(View.GONE);
-                tvUpgrade.setVisibility(View.VISIBLE);
-                tvUpgrade.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        (activity).showUpgradeProVersionDialog();
-                    }
-                });
+            if (conversation.isFree == 0) {
+                if (isTranscription == true) {
+                    tvTrick.setVisibility(View.VISIBLE);
+                    imageViewBlur.setVisibility(View.VISIBLE);
+                    tvHeaderFake.setText(header);
+                    tvDescription.setVisibility(View.GONE);
+                    tvUpgrade.setVisibility(View.VISIBLE);
+                    tvUpgrade.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            (activity).showUpgradeProVersionDialog();
+                        }
+                    });
 
-            } else {
-                imageViewBlur.setVisibility(View.GONE);
-                tvTrick.setVisibility(View.GONE);
-                tvUpgrade.setVisibility(View.GONE);
-
-
+                } else {
+                    imageViewBlur.setVisibility(View.GONE);
+                    tvTrick.setVisibility(View.GONE);
+                    tvUpgrade.setVisibility(View.GONE);
+                }
             }
         } else {
             imageViewBlur.setVisibility(View.GONE);
             tvTrick.setVisibility(View.GONE);
         }
 
-        if(!activity.isProVersion()) {
-            getContent().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    adsHandler = new AdsSmallBannerHandler(activity, (ViewGroup) getContent().findViewById(R.id.ads_container), MainActivity.ADS_TYPE_SMALL, AdSize.MEDIUM_RECTANGLE);
-                    adsHandler.setup();
-                }
-            },500);
+        if (!activity.isProVersion()) {
+            adsHandler = new AdsSmallBannerHandler(activity, (ViewGroup) getContent().findViewById(R.id.ads_container), MainActivity.ADS_TYPE_SMALL, AdSize.MEDIUM_RECTANGLE);
+            adsHandler.setup();
         }
     }
 
@@ -88,7 +85,7 @@ public class DescriptionPage extends BasePage {
     @Override
     public void destroy() {
         super.destroy();
-        if(adsHandler!=null) {
+        if (adsHandler != null) {
             adsHandler.destroy();
         }
     }

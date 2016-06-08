@@ -451,6 +451,8 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         super.onDestroy();
         mHandler.removeCallbacks(mUpdateTimeTask);
         mHandler2.removeCallbacks(mUpdateDownload);
+
+        ((MainActivity)getActivity()).showRateAppIfNeeded();
     }
 
     public class MyViewPagerAdapter extends PagerAdapter {

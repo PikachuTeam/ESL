@@ -37,6 +37,8 @@ public class LevelPage extends BasePage {
     private LevelAdapter adapterPhrase;
     private LinearLayoutManager lmPhrase;
 
+    private boolean isProVersion;
+
     @Override
     protected int getContentId() {
         return R.layout.page_level;
@@ -44,6 +46,7 @@ public class LevelPage extends BasePage {
 
     public LevelPage(MyBaseFragment fragment, MainActivity activity, int catID, int level) {
         super(fragment, activity);
+        isProVersion = activity.isProVersion();
         LEVEL = level;
         CATID = catID;
         this.fragment = fragment;
@@ -117,7 +120,7 @@ public class LevelPage extends BasePage {
             } else {
                 viewHolder.cvDownloaded.setVisibility(View.INVISIBLE);
             }
-            if (activity.isProVersion()) {
+            if (isProVersion) {
                 viewHolder.ivPro.setVisibility(View.INVISIBLE);
             } else if (list.get(i).isFree > 0) {
                 viewHolder.ivPro.setVisibility(View.INVISIBLE);

@@ -26,10 +26,13 @@ import essential.esl.app.MyBaseFragment;
 import essential.esl.app.MyDialog;
 import essential.esl.ui.fragment.HomeFragment;
 import essential.esl.ui.fragment.SplashFragment;
+import hotchemi.android.rate.AppRate;
+import hotchemi.android.rate.OnClickButtonListener;
 import tatteam.com.app_common.AppCommon;
 import tatteam.com.app_common.ads.AdsBigBannerHandler;
 import tatteam.com.app_common.sqlite.DatabaseLoader;
 import tatteam.com.app_common.util.AppConstant;
+import tatteam.com.app_common.util.AppLocalSharedPreferences;
 import tatteam.com.app_common.util.CloseAppHandler;
 
 public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCloseAppListener, BillingProcessor.IBillingHandler {
@@ -41,6 +44,9 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     public static AppConstant.AdsType ADS_TYPE_BIG;
     public final static int BIG_ADS_SHOWING_INTERVAL = 8;
     public static int adsCounter;
+    public final static int RATE_APP_INTERVAL = 10;
+    public static int rateAppCounter = 1;
+    private AppRate appRate;
 
     private final int PERMISSION_REQUEST_CODE = 1;
     public static final String ESL = "englishsecondlanguage";
@@ -286,6 +292,33 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
             if (adsCounter % BIG_ADS_SHOWING_INTERVAL == 0) {
                 adsBigBannerHandler.show();
             }
+        }
+    }
+
+    public void showRateAppIfNeeded(){
+        if(!AppLocalSharedPreferences.getInstance().isRatedApp()){
+            if (rateAppCounter % RATE_APP_INTERVAL == 0) {
+                if(appRate == null) {
+                    appRate = AppRate.with(this)
+                            .setInstallDays(0) // default 10, 0 means install day.
+                            .setLaunchTimes(0) // default 10
+                            .setRemindInterval(0) // default 1
+                            .setShowLaterButton(false)
+                            .setOnClickButtonListener(new OnClickButtonListener() { // callback listener.
+                                @Override
+                                public void onClickButton(int which) {
+                                    if (which == -1) {//rate
+                                        AppLocalSharedPreferences.getInstance().setIsRateApp(true);
+                                    } else {//close
+                                        appRate.clearAgreeShowDialog();
+                                        AppLocalSharedPreferences.getInstance().setRateAppRemindInterval();
+                                    }
+                                }
+                            });
+                }
+                appRate.showRateDialog(this);
+            }
+            rateAppCounter++;
         }
     }
 }

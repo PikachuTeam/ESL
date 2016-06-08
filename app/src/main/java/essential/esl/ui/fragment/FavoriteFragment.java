@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,6 +96,24 @@ public class FavoriteFragment extends MyBaseFragment implements View.OnClickList
             Glide.with(FavoriteFragment.this)
                     .load(list.get(i).avatarImageUrl).centerCrop().crossFade().error(R.drawable.logo)
                     .into(viewHolder.ivAvatar);
+            MainActivity activity = (MainActivity) getBaseActivity();
+            if (list.get(i).isFavorite > 0) {
+                viewHolder.ivFavorite.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.ivFavorite.setVisibility(View.INVISIBLE);
+            }
+            if (list.get(i).isDownloaded > 0) {
+                viewHolder.cvDownloaded.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.cvDownloaded.setVisibility(View.INVISIBLE);
+            }
+            if (activity.isProVersion()) {
+                viewHolder.ivPro.setVisibility(View.INVISIBLE);
+            } else if (list.get(i).isFree > 0) {
+                viewHolder.ivPro.setVisibility(View.INVISIBLE);
+            } else {
+                viewHolder.ivPro.setVisibility(View.VISIBLE);
+            }
             if (list.get(i).score > 0) {
                 viewHolder.ivStatus.setImageResource(R.drawable.dot);
                 if (list.get(i).score / list.size() == 1)
@@ -132,9 +151,10 @@ public class FavoriteFragment extends MyBaseFragment implements View.OnClickList
             public TextView tvTitle;
             public TextView tvLength;
             public TextView tvStatus;
-            public ImageView ivAvatar;
+            public ImageView ivAvatar, ivPro;
             public ImageView ivStatus;
-            public CardView item;
+            public CardView item, cvDownloaded;
+            public RelativeLayout ivFavorite;
 
 
             public ViewHolder(View itemView) {
@@ -144,7 +164,11 @@ public class FavoriteFragment extends MyBaseFragment implements View.OnClickList
                 tvStatus = (TextView) itemView.findViewById(R.id.tv_status);
                 ivAvatar = (ImageView) itemView.findViewById(R.id.avatar);
                 ivStatus = (ImageView) itemView.findViewById(R.id.iv_status);
+                ivFavorite = (RelativeLayout) itemView.findViewById(R.id.item_favorite);
+                ivPro = (ImageView) itemView.findViewById(R.id.id_iv_pro);
                 item = (CardView) itemView.findViewById(R.id.item);
+                cvDownloaded = (CardView) itemView.findViewById(R.id.id_iv_downloaded);
+
 
             }
 

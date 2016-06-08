@@ -114,7 +114,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     }
 
     private void setupViewPager() {
-        adapter = new MyViewPagerAdapter((MyBaseActivity) getActivity(), this);
+        adapter = new MyViewPagerAdapter((MainActivity) getActivity(), this);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -456,7 +456,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     public class MyViewPagerAdapter extends PagerAdapter {
         private ArrayList<BasePage> pages;
 
-        public MyViewPagerAdapter(MyBaseActivity activity, MyBaseFragment fragment) {
+        public MyViewPagerAdapter(MainActivity activity, MyBaseFragment fragment) {
             pages = new ArrayList<>();
             QuizzesPage quizzesPage = new QuizzesPage(fragment, activity, conversation);
             pages.add(quizzesPage);

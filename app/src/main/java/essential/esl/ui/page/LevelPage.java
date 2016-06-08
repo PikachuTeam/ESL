@@ -22,6 +22,7 @@ import essential.esl.app.MyBaseActivity;
 import essential.esl.app.MyBaseFragment;
 import essential.esl.data.Conversation;
 import essential.esl.data.DataSource;
+import essential.esl.ui.activity.MainActivity;
 import essential.esl.ui.fragment.QuizzeFragment;
 
 /**
@@ -41,7 +42,7 @@ public class LevelPage extends BasePage {
         return R.layout.page_level;
     }
 
-    public LevelPage(MyBaseFragment fragment, MyBaseActivity activity, int catID, int level) {
+    public LevelPage(MyBaseFragment fragment, MainActivity activity, int catID, int level) {
         super(fragment, activity);
         LEVEL = level;
         CATID = catID;

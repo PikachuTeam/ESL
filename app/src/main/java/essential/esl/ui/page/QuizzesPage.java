@@ -38,7 +38,7 @@ public class QuizzesPage extends BasePage {
         return R.layout.page_quizzes;
     }
 
-    public QuizzesPage(MyBaseFragment fragment, MyBaseActivity activity, Conversation conversation) {
+    public QuizzesPage(MyBaseFragment fragment, MainActivity activity, Conversation conversation) {
         super(fragment, activity);
         this.conversation = conversation;
         listQuizze = DataSource.getQuizzes(conversation.id);
@@ -152,7 +152,7 @@ public class QuizzesPage extends BasePage {
                     @Override
                     public void onClick(View v) {
                         MyAnimation.animZoomWhenOnClick(v, this, 1, 1.05f, 1, 1.05f);
-                        if (MainActivity.isProVersion()) {
+                        if (activity.isProVersion()) {
                             checkMode = true;
                             notifyDataSetChanged();
                             viewHolder.tvScore.setText(getNumberAnswerCorrect() + "/" + list.size());

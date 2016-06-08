@@ -153,7 +153,7 @@
                     android:id="@+id/btn_Upgrade"
                     android:layout_width="@dimen/common_size_100"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/common_size_35"
+                    android:layout_marginLeft="@dimen/common_size_25"
                     app:cardBackgroundColor="@color/perfect"
                     app:cardCornerRadius="@dimen/common_size_6"
                     app:cardElevation="@dimen/common_size_3">

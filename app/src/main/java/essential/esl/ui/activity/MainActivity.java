@@ -168,7 +168,12 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         HomeFragment fragment = new HomeFragment();
         transaction.setCustomAnimations(R.anim.top_enter, R.anim.fade_out);
         transaction.replace(getParentFragmentContainerId(), fragment, fragment.getClass().getName());
-        transaction.commit();
+        try {
+            transaction.commit();
+        }catch (Exception ex){
+            transaction.commitAllowingStateLoss();
+        }
+
     }
 
     public void animSplashLogo() {

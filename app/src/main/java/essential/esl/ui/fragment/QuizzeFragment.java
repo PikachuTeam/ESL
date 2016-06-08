@@ -458,7 +458,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
 
         public MyViewPagerAdapter(MainActivity activity, MyBaseFragment fragment) {
             pages = new ArrayList<>();
-            QuizzesPage quizzesPage = new QuizzesPage(fragment, activity, conversation.id);
+            QuizzesPage quizzesPage = new QuizzesPage(fragment, activity, conversation);
             pages.add(quizzesPage);
             if (!conversation.script.equals("")) {
                 DescriptionPage scriptPage = new DescriptionPage(fragment, activity, conversation.script, "Transcription", true);

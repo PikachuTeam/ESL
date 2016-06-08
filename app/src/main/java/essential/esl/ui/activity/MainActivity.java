@@ -127,11 +127,8 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         enableOnBackPressed();
         animSplashLogo();
         replaceParentFragment();
-        boolean checkPermission = sharedPref.getBoolean(CHECK_PERMISSION, false);
-        if (checkPermission == false) {
-            requestPermission();
-        } else {
-        }
+//        boolean checkPermission = sharedPref.getBoolean(CHECK_PERMISSION, false);
+        requestPermission();
 
     }
 

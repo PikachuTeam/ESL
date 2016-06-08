@@ -111,10 +111,11 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="12"
+                    android:layout_weight="13"
                     android:gravity="center">
 
                     <ImageView
+                        android:layout_marginLeft="@dimen/common_size_4"
                         android:layout_width="@dimen/common_size_20"
                         android:layout_height="@dimen/common_size_20"
                         android:src="@drawable/play_circle_outline" />
@@ -123,7 +124,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="36"
+                    android:layout_weight="35"
                     android:gravity="center">
 
                     <TextView

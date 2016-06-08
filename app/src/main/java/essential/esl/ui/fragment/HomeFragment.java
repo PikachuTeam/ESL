@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -31,6 +32,7 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
     public FloatingActionsMenu actionsMenu;
     protected FloatingActionButton btnShare, btnMoreApp, btnFeedback, btnFavorite;
     private RelativeLayout fabListen;
+    private ImageView pro100;
 
     @Override
     protected int getLayoutResIdContentView() {
@@ -53,12 +55,21 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
         btnMoreApp = (FloatingActionButton) rootView.findViewById(R.id.btn_more_app);
         btnShare = (FloatingActionButton) rootView.findViewById(R.id.btn_share);
         fabListen = (RelativeLayout) rootView.findViewById(R.id.listen_fab_menu);
+        pro100 = (ImageView) rootView.findViewById(R.id.pro_100);
         setFabMenu(rootView);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
         btn4.setOnClickListener(this);
-        btnUpgrade.setOnClickListener(this);
+        MainActivity activity = (MainActivity) getBaseActivity();
+        if (activity.isProVersion()) {
+            pro100.setVisibility(View.VISIBLE);
+            btnUpgrade.setVisibility(View.GONE);
+        } else {
+            pro100.setVisibility(View.GONE);
+            btnUpgrade.setVisibility(View.VISIBLE);
+            btnUpgrade.setOnClickListener(this);
+        }
         btnFavorite.setOnClickListener(this);
         btnShare.setOnClickListener(this);
         btnFeedback.setOnClickListener(this);

@@ -117,7 +117,9 @@ public class LevelPage extends BasePage {
             } else {
                 viewHolder.cvDownloaded.setVisibility(View.INVISIBLE);
             }
-            if (list.get(i).isFree > 0) {
+            if (activity.isProVersion()) {
+                viewHolder.ivPro.setVisibility(View.INVISIBLE);
+            } else if (list.get(i).isFree > 0) {
                 viewHolder.ivPro.setVisibility(View.INVISIBLE);
             } else {
                 viewHolder.ivPro.setVisibility(View.VISIBLE);

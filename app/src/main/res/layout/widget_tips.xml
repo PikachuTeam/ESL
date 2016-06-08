@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_tips"
-    android:orientation="vertical"
-
     android:visibility="gone">
 
     <RelativeLayout
@@ -18,6 +16,7 @@
         android:paddingTop="@dimen/common_size_60">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/content_tips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/common_size_15"
@@ -174,11 +173,11 @@
 
                     <ImageView
                         android:id="@+id/imageAvatar"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/common_size_150"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/common_size_10"
-                        android:scaleType="fitStart" />
+                        android:scaleType="fitCenter" />
 
 
                     <RelativeLayout
@@ -215,9 +214,4 @@
             </ScrollView>
         </android.support.v7.widget.CardView>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/btn_Hide"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></RelativeLayout>
 </RelativeLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
 
         android:gravity="center"
-        android:paddingTop="@dimen/common_size_40"
-        android:paddingBottom="@dimen/common_size_40">
+        android:paddingBottom="@dimen/common_size_40"
+        android:paddingTop="@dimen/common_size_40">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -135,35 +135,44 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_size_45"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey1"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/btn_no"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="49.25"
+            android:gravity="center"
+            android:scaleX="0.95"
+            android:text="NO"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="@dimen/common_text_size_18"
+            android:textStyle="bold"></TextView>
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_size_45"
-            android:layout_alignParentBottom="true"
-            android:background="@color/grey1"
-            android:weightSum="100">
+            android:layout_marginTop="@dimen/common_size_3"
+            android:layout_marginBottom="@dimen/common_size_3"
 
-            <TextView
-                android:id="@+id/btn_no"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:scaleX="0.95"
-                android:text="NO"
-                android:textColor="@color/secondaryTextColor"
-                android:textSize="@dimen/common_text_size_18"
-                android:textStyle="bold"></TextView>
+            android:layout_width="0dp"
+            android:background="@color/secondaryTextColor"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"></LinearLayout>
 
-            <TextView
-                android:id="@+id/btn_yes"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:scaleX="0.95"
-                android:text="YES"
-                android:textColor="@color/green"
-                android:textSize="@dimen/common_text_size_18"
-                android:textStyle="bold"></TextView>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/btn_yes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="49.25"
+            android:gravity="center"
+            android:scaleX="0.95"
+            android:text="YES"
+            android:textColor="@color/green"
+            android:textSize="@dimen/common_text_size_18"
+            android:textStyle="bold"></TextView>
+    </LinearLayout>
 </LinearLayout>

@@ -153,18 +153,23 @@ public class QuizzesPage extends BasePage {
                     public void onClick(View v) {
                         MyAnimation.animZoomWhenOnClick(v, this, 1, 1.05f, 1, 1.05f);
                         if (activity.isProVersion()) {
-                            checkMode = true;
-                            notifyDataSetChanged();
-                            viewHolder.tvScore.setText(getNumberAnswerCorrect() + "/" + list.size());
-                            DataSource.updateScore(conversation.id, getNumberAnswerCorrect());
-                            MyAnimation.animZoomWhenOnClick(viewHolder.tvScore, this, 1, 1.5f, 1, 1.5f);
-                        } else {
-                            if (conversation.isFree > 0) {
+                            if (isCheck()) {
                                 checkMode = true;
                                 notifyDataSetChanged();
                                 viewHolder.tvScore.setText(getNumberAnswerCorrect() + "/" + list.size());
                                 DataSource.updateScore(conversation.id, getNumberAnswerCorrect());
                                 MyAnimation.animZoomWhenOnClick(viewHolder.tvScore, this, 1, 1.5f, 1, 1.5f);
+                            }
+
+                        } else {
+                            if (conversation.isFree > 0) {
+                                if (isCheck()) {
+                                    checkMode = true;
+                                    notifyDataSetChanged();
+                                    viewHolder.tvScore.setText(getNumberAnswerCorrect() + "/" + list.size());
+                                    DataSource.updateScore(conversation.id, getNumberAnswerCorrect());
+                                    MyAnimation.animZoomWhenOnClick(viewHolder.tvScore, this, 1, 1.5f, 1, 1.5f);
+                                }
                             } else {
                                 (activity).showUpgradeProVersionDialog();
                             }
@@ -184,11 +189,11 @@ public class QuizzesPage extends BasePage {
             return sum;
         }
 
-        public boolean isCheckAll() {
+        public boolean isCheck() {
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getSelectedAnswer() < 0) return false;
+                if (list.get(i).getSelectedAnswer() >= 0) return true;
             }
-            return true;
+            return false;
         }
 
         //    need to override this method

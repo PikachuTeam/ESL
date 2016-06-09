@@ -22,6 +22,7 @@ public class MyDialog extends Dialog implements View.OnClickListener {
         this.activity = activity;
         setContentView(R.layout.my_dialog);
         init();
+        setCancelable(false);
     }
 
     public static MyDialog getInstance(MainActivity activity) {
@@ -52,6 +53,7 @@ public class MyDialog extends Dialog implements View.OnClickListener {
                 dismiss();
                 break;
             case R.id.btn_yes:
+                dismiss();
                 requestUpgradeToProVersion();
                 break;
         }

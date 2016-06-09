@@ -77,6 +77,13 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
     }
 
     @Override
+    public void onAppUpgraded() {
+        super.onAppUpgraded();
+        pro100.setVisibility(View.VISIBLE);
+        btnUpgrade.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onBackPress() {
         if (fabListen.getVisibility() == View.VISIBLE) {
             actionsMenu.collapse();

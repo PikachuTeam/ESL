@@ -142,6 +142,20 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     }
 
     @Override
+    public void onAppUpgraded() {
+        super.onAppUpgraded();
+        try{
+            ((DescriptionPage)adapter.pages.get(1)).onAppUpgraded();
+
+        }catch (Exception ex){
+        }
+        try{
+            ((DescriptionPage)adapter.pages.get(2)).onAppUpgraded();
+        }catch (Exception ex){
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         isInApp = true;
@@ -456,7 +470,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
     }
 
     public class MyViewPagerAdapter extends PagerAdapter {
-        private ArrayList<BasePage> pages;
+        public ArrayList<BasePage> pages;
 
         public MyViewPagerAdapter(MainActivity activity, MyBaseFragment fragment) {
             pages = new ArrayList<>();

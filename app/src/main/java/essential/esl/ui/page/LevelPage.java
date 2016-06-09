@@ -159,6 +159,7 @@ public class LevelPage extends BasePage {
             listConversation = DataSource.getConversation(CATID, LEVEL);
             list = listConversation;
             notifyDataSetChanged();
+            isProVersion = activity.isProVersion();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

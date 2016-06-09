@@ -31,7 +31,7 @@ public class DescriptionPage extends BasePage {
     private RelativeLayout tvTrick;
     private Conversation conversation;
     private AdsSmallBannerHandler adsHandler;
-
+    private ScrollView scroll_description;
     public DescriptionPage(final MyBaseFragment fragment, final MainActivity activity, Conversation conversation, String stringContent, String header, boolean isTranscription) {
         super(fragment, activity);
         tvDescription = (TextView) getContent().findViewById(R.id.tv_description);
@@ -40,6 +40,7 @@ public class DescriptionPage extends BasePage {
         tvTrick = (RelativeLayout) getContent().findViewById(R.id.tv_trick);
         imageViewBlur = (ImageView) getContent().findViewById(R.id.iv);
         tvUpgrade = (TextView) getContent().findViewById(R.id.tv_upgrade);
+        scroll_description = (ScrollView) getContent().findViewById(R.id.scroll_description);
         tvHeader.setText(header);
         this.conversation = conversation;
         tvDescription.setText(Html.fromHtml(stringContent.trim()));
@@ -74,8 +75,13 @@ public class DescriptionPage extends BasePage {
         }
 
         if (!activity.isProVersion()) {
-            adsHandler = new AdsSmallBannerHandler(activity, (ViewGroup) getContent().findViewById(R.id.ads_container), MainActivity.ADS_TYPE_SMALL, AdSize.MEDIUM_RECTANGLE);
-            adsHandler.setup();
+            getContent().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adsHandler = new AdsSmallBannerHandler(activity, (ViewGroup) getContent().findViewById(R.id.ads_container), MainActivity.ADS_TYPE_SMALL, AdSize.MEDIUM_RECTANGLE);
+                    adsHandler.setup();
+                }
+            },500);
         }
     }
 
@@ -90,6 +96,19 @@ public class DescriptionPage extends BasePage {
         super.destroy();
         if (adsHandler != null) {
             adsHandler.destroy();
+        }
+    }
+
+    public void onAppUpgraded(){
+
+        imageViewBlur.setVisibility(View.GONE);
+        tvTrick.setVisibility(View.GONE);
+        getContent().findViewById(R.id.ads_container).setVisibility(View.GONE);
+        if (adsHandler != null) {
+            adsHandler.destroy();
+        }
+        if(isTranscription){
+            tvDescription.setVisibility(View.VISIBLE);
         }
     }
 }

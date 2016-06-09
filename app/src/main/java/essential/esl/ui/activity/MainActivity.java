@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.os.PowerManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -73,7 +74,9 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     }
 
     private void requestPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        }
     }
 
     public boolean isProVersion() {
@@ -168,11 +171,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         HomeFragment fragment = new HomeFragment();
         transaction.setCustomAnimations(R.anim.top_enter, R.anim.fade_out);
         transaction.replace(getParentFragmentContainerId(), fragment, fragment.getClass().getName());
-        try {
-            transaction.commit();
-        }catch (Exception ex){
-            transaction.commitAllowingStateLoss();
-        }
+        transaction.commit();
 
     }
 
@@ -254,6 +253,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     public void onProductPurchased(String productId, TransactionDetails details) {
         if (PURCHASE_PRO_VERSION_ID.equals(productId)) {
             setProVersion(true);
+            getCurrentFragment().onAppUpgraded();
         }
     }
 
@@ -270,6 +270,9 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     @Override
     public void onBillingInitialized() {
         setProVersion(billingProcessor.isPurchased(PURCHASE_PRO_VERSION_ID));
+        if(isProVersion()){
+            getCurrentFragment().onAppUpgraded();
+        }
     }
 
     @Override

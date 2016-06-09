@@ -107,4 +107,6 @@ public abstract class MyBaseFragment extends Fragment {
 
     protected abstract void onCreateContentView(View rootView, Bundle savedInstanceState);
 
+    public void onAppUpgraded(){}
+
 }

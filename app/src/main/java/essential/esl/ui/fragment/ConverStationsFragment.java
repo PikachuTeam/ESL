@@ -82,6 +82,11 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
     }
 
     @Override
+    public void onAppUpgraded() {
+        super.onAppUpgraded();
+    }
+
+    @Override
     public void onClick(View v) {
         MyAnimation.animZoomWhenOnClick(v, this, 1, 1.3f, 1, 1.3f);
         int id = v.getId();

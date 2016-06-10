@@ -311,7 +311,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     }
 
     public void showRateAppIfNeeded() {
-        if (!AppLocalSharedPreferences.getInstance().isRatedApp()) {
+        if (!AppLocalSharedPreferences.getInstance().isRatedApp() && !isProVersion()) {
             if (rateAppCounter % RATE_APP_INTERVAL == 0) {
                 if (appRate == null) {
                     appRate = AppRate.with(this)

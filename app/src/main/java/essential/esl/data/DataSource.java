@@ -1,5 +1,6 @@
 package essential.esl.data;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
@@ -211,9 +212,8 @@ public class DataSource extends BaseDataSource {
         return isDownloaded;
     }
 
-    public static boolean isFileExists(String name) {
-        File extStore = Environment.getExternalStorageDirectory();
-        File myFile = new File(extStore.getAbsolutePath() + "/Essential/ESLAudios/" + name + ".mp3");
+    public static boolean isFileExists(Context context, String name) {
+        File myFile = new File(context.getExternalCacheDir().getAbsolutePath() + name + ".mp3");
 
         if (myFile.exists())
             return true;

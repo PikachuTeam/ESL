@@ -272,7 +272,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         if (!isSetUpAudio) {
             if (!isLoading) {
                 btnPlay.setImageResource(R.drawable.pause);
-                if (DataSource.isFileExists(conversation.id + "")) {
+                if (DataSource.isFileExists(getActivity(),conversation.id + "")) {
                     playAudioFromSdCard();
                 } else {
                     if (isOnline()) {
@@ -290,7 +290,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
                                         downloadPercent = (int) (downloaded * 100 / total);
                                     }
                                 })// write to a file
-                                .write(new File("/sdcard/Essential/ESLAudios/" + conversation.id + ".mp3"))
+                                .write(new File(getBaseActivity().getExternalCacheDir().getAbsolutePath() + conversation.id + ".mp3"))
                                 // run a callback on completion
                                 .setCallback(new FutureCallback<File>() {
                                     @Override
@@ -345,7 +345,7 @@ public class QuizzeFragment extends MyBaseFragment implements View.OnClickListen
         }
         btnPlay.setImageResource(R.drawable.pause);
         mediaPlayer.reset();
-        String mediaPath = "/sdcard/Essential/ESLAudios/" + conversation.id + ".mp3";
+        String mediaPath = getBaseActivity().getExternalCacheDir().getAbsolutePath() + conversation.id + ".mp3";
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         Uri uri = Uri.parse(mediaPath);
         try {

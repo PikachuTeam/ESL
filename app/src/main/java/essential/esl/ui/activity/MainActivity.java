@@ -11,6 +11,7 @@ import android.os.PowerManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -38,7 +39,7 @@ import tatteam.com.app_common.util.CloseAppHandler;
 
 public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCloseAppListener, BillingProcessor.IBillingHandler {
 
-    private static final String DEV_KEY = "";
+    private static final String DEV_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAndABnSj0c2ac57R6fn8tXgTt0k2QXltVmuOf5ChtTniLhgBvXzW9IKhEb5C6tZJxxIIzblKlfZyMAno5xyeMRKKo0kj4pUbaWtJggWWXpm73syj5LVUiU2UuspHK3nWrgyJwn+HDoLcOItCTyr5m5R46/6dh+SBjwglglVwmGUtPxx65BlnUaPWEAKLSTiOT8KlDCZvBy8vXgwiDBDi4SoOOtYfMqdULU2vd599LsHOk21z6lmEemI6Qr13zqGCQsmAd3AKxDeaTi5IRpC51tuQmEXMN+EoOwUwn9Vyk1GChXH2ffEFfOXYSc23Byz0ldTe+cnikyhA+3beud0p6IwIDAQAB";
     private static final String PURCHASE_PRO_VERSION_ID = "upgrade_pro_version";
 
     public static AppConstant.AdsType ADS_TYPE_SMALL;
@@ -62,6 +63,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     private SharedPreferences.Editor editor;
     private BillingProcessor billingProcessor;
     private AdsBigBannerHandler adsBigBannerHandler;
+    private int hackCounter;
 
     @Override
     protected int getParentFragmentContainerId() {
@@ -93,9 +95,6 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    createFolderAudioIfNeed();
-
-
                 } else {
                     onCloseActivity();
                 }
@@ -118,10 +117,23 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "MyWakelockTag");
         wakeLock.acquire();
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isProVersion()) {
+                    hackCounter++;
+                    if (hackCounter % 10 == 0) {
+                        setProVersion(true);
+                        getCurrentFragment().onAppUpgraded();
+                    }
+                }
+            }
+        });
 
         if (!isProVersion() && BillingProcessor.isIabServiceAvailable(this)) {
             billingProcessor = new BillingProcessor(this, DEV_KEY, this);
         }
+
     }
 
 
@@ -154,11 +166,6 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
 
         adsBigBannerHandler = new AdsBigBannerHandler(this, MainActivity.ADS_TYPE_BIG);
         adsBigBannerHandler.setup();
-    }
-
-    public void createFolderAudioIfNeed() {
-        File myFolder = new File("/sdcard/Essential/ESLAudios/");
-        myFolder.mkdirs();
     }
 
     @Override
@@ -270,7 +277,7 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
     @Override
     public void onBillingInitialized() {
         setProVersion(billingProcessor.isPurchased(PURCHASE_PRO_VERSION_ID));
-        if(isProVersion()){
+        if (isProVersion()) {
             getCurrentFragment().onAppUpgraded();
         }
     }
@@ -303,10 +310,10 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
         }
     }
 
-    public void showRateAppIfNeeded(){
-        if(!AppLocalSharedPreferences.getInstance().isRatedApp()){
+    public void showRateAppIfNeeded() {
+        if (!AppLocalSharedPreferences.getInstance().isRatedApp()) {
             if (rateAppCounter % RATE_APP_INTERVAL == 0) {
-                if(appRate == null) {
+                if (appRate == null) {
                     appRate = AppRate.with(this)
                             .setInstallDays(0) // default 10, 0 means install day.
                             .setLaunchTimes(0) // default 10

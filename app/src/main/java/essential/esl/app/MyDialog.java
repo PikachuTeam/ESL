@@ -13,7 +13,6 @@ import essential.esl.ui.activity.MainActivity;
  */
 public class MyDialog extends Dialog implements View.OnClickListener {
     private TextView btnNo, btnYes;
-    private static MyDialog instance;
     private MainActivity activity;
 
     private MyDialog(MainActivity activity) {
@@ -26,10 +25,7 @@ public class MyDialog extends Dialog implements View.OnClickListener {
     }
 
     public static MyDialog getInstance(MainActivity activity) {
-        if (instance == null) {
-            instance = new MyDialog(activity);
-        }
-        return instance;
+        return new MyDialog(activity);
     }
 
     private void init() {

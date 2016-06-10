@@ -40,7 +40,7 @@ import tatteam.com.app_common.util.CloseAppHandler;
 public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCloseAppListener, BillingProcessor.IBillingHandler {
 
     private static final String DEV_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAndABnSj0c2ac57R6fn8tXgTt0k2QXltVmuOf5ChtTniLhgBvXzW9IKhEb5C6tZJxxIIzblKlfZyMAno5xyeMRKKo0kj4pUbaWtJggWWXpm73syj5LVUiU2UuspHK3nWrgyJwn+HDoLcOItCTyr5m5R46/6dh+SBjwglglVwmGUtPxx65BlnUaPWEAKLSTiOT8KlDCZvBy8vXgwiDBDi4SoOOtYfMqdULU2vd599LsHOk21z6lmEemI6Qr13zqGCQsmAd3AKxDeaTi5IRpC51tuQmEXMN+EoOwUwn9Vyk1GChXH2ffEFfOXYSc23Byz0ldTe+cnikyhA+3beud0p6IwIDAQAB";
-    private static final String PURCHASE_PRO_VERSION_ID = "upgrade_pro_version";
+    private static final String PURCHASE_PRO_VERSION_ID = "to_pro_version";
 
     public static AppConstant.AdsType ADS_TYPE_SMALL;
     public static AppConstant.AdsType ADS_TYPE_BIG;

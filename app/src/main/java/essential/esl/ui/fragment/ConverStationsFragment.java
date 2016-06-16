@@ -69,10 +69,11 @@ public class ConverStationsFragment extends MyBaseFragment implements View.OnCli
     public void setTitle() {
         switch (idCat) {
             case 1:
-                tvTitle.setText(getResources().getString(R.string.basic));
+                tvTitle.setText(getResources().getString(R.string.general));
                 break;
             case 2:
-                tvTitle.setText(getResources().getString(R.string.general));
+                tvTitle.setText(getResources().getString(R.string.basic));
+
                 break;
             case 3:
                 tvTitle.setText(getResources().getString(R.string.academy));

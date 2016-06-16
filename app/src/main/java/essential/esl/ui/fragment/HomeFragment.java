@@ -162,10 +162,10 @@ public class HomeFragment extends MyBaseFragment implements View.OnClickListener
             int idCat = 0;
             switch (id) {
                 case R.id.btn_lv1:
-                    idCat = 1;
+                    idCat = 2;
                     break;
                 case R.id.btn_lv2:
-                    idCat = 2;
+                    idCat = 1;
                     break;
                 case R.id.btn_lv3:
                     idCat = 3;

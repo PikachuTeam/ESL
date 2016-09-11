@@ -15,8 +15,8 @@ android {
         applicationId "com.essential.esl"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 4
-        versionName "1.3"
+        versionCode 5
+        versionName "1.4"
     }
     buildTypes {
         release {
@@ -28,7 +28,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:23.1.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:appcompat-v7:23.1.1'

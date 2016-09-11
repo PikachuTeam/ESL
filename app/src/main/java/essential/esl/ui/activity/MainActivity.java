@@ -44,9 +44,9 @@ public class MainActivity extends MyBaseActivity implements CloseAppHandler.OnCl
 
     public static AppConstant.AdsType ADS_TYPE_SMALL;
     public static AppConstant.AdsType ADS_TYPE_BIG;
-    public final static int BIG_ADS_SHOWING_INTERVAL = 8;
+    public final static int BIG_ADS_SHOWING_INTERVAL = 5;
     public static int adsCounter;
-    public final static int RATE_APP_INTERVAL = 10;
+    public final static int RATE_APP_INTERVAL = 7;
     public static int rateAppCounter = 1;
     private AppRate appRate;
 

@@ -18,6 +18,7 @@ public interface AppConstant {
         //test banner
         SMALL_BANNER_TEST("small_banner_test"),
         BIG_BANNER_TEST("big_banner_test"),
+        NATIVE_EXPRESS_TEST("native_express_test"),
 
         //game
         SMALL_BANNER_GAME("small_banner_game"),
@@ -29,8 +30,12 @@ public interface AppConstant {
 
         //driving
         SMALL_BANNER_DRIVING_TEST("small_banner_driving_test"),
-        BIG_BANNER_DRIVING_TEST("big_banner_driving_test");
-
+        BIG_BANNER_DRIVING_TEST("big_banner_driving_test"),
+        NATIVE_EXPRESS_DRIVING_TEST("native_express_driving_test"),
+        NATIVE_EXPRESS_CONTENT_DRIVING_TEST("native_express_content_driving_test"),
+        NATIVE_EXPRESS_INSTALL_DRIVING_TEST("native_express_install_driving_test"),
+        BIG_NATIVE_EXPRESS_DRIVING_TEST("big_native_express_driving_test"),
+        SMALL_NATIVE_EXPRESS_DRIVING_TEST("small_native_express_driving_test");
 
         private String type;
 

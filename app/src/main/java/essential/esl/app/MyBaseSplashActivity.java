@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.HashMap;
 
+import essential.esl.AppClient;
 import essential.esl.R;
 
 
@@ -117,8 +118,10 @@ public abstract class MyBaseSplashActivity extends AppCompatActivity {
 
     public void replaceFragment(MyBaseFragment fragment, String fragmentTag, String transactionTag, boolean needCommitAllowingStateLoss) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.right_enter, R.anim.left_exit,
-                R.anim.left_enter, R.anim.right_exit);
+        if (((AppClient)getApplication()).isAnimationSupported()) {
+            transaction.setCustomAnimations(R.anim.right_enter, R.anim.left_exit,
+                    R.anim.left_enter, R.anim.right_exit);
+        }
         transaction.replace(getParentFragmentContainerId(), fragment, fragmentTag).addToBackStack(transactionTag);
         if (needCommitAllowingStateLoss) {
             transaction.commitAllowingStateLoss();
